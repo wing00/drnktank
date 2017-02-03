@@ -15,7 +15,7 @@ module.exports = {
     entry: {a: './apps/front/static/front/js',
     },
     output: {
-        publicPath: public_path,
+        publicPath: './static/bundles/',
         path: path.resolve('./apps/core/static/bundles/'),
         filename: '[name]-[hash].js',
     },
@@ -69,7 +69,6 @@ module.exports = {
             }
         ]
     },
-
     resolve: {
         //tells webpack where to look for modules
         modulesDirectories: ['node_modules'],
