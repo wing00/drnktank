@@ -1,18 +1,29 @@
 """
 settings
 """
+from configparser import RawConfigParser
 import os
 import dj_database_url
 
 
-DEBUG = True
-SECRET_KEY = "f1^097psdc38b2o(-u6i73-fm-uu=fx%@j8=*85twq%)#lg&rm"
+config = RawConfigParser()
+config.read('defaults.cfg')
+
+DEBUG = config.get('Django', 'DEBUG')
+SECRET_KEY = config.get('Django', 'SECRET_KEY')  # change in production
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+ALLOWED_HOSTS = ['localhost',
+                 '127.0.0.1',
+                 'drnktank.herokuapp.com',
+                 'drnktank.com',
+                 'www.drnktank.com']
+
+
 ROOT_URLCONF = 'drnktank.urls'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-ALLOWED_HOSTS = ['*']
 WSGI_APPLICATION = 'drnktank.wsgi.application'
 
 LANGUAGE_CODE = 'en-us'
@@ -27,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',  #heroku?
+    'whitenoise.runserver_nostatic',  # heroku
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
@@ -83,7 +94,6 @@ DATABASES = {
 }
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
-
 
 
 AUTH_PASSWORD_VALIDATORS = [

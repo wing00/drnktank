@@ -1,48 +1,58 @@
-# Heroku Django Starter Template
+# DrnkTank
 
-An utterly fantastic project starter template for Django 1.10.
+Drinktank was taken
 
 ## Features
 
-- Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
-- Enhancements to Django's static file serving functionality via WhiteNoise.
-- Latest Python 3.6 runtime environment. 
+running react.js, django, webpack
 
 ## How to Use
 
-To use this project, follow these steps:
+#### Mac
+    # get brew
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew install node python3 git
+    
+    pip install virtualenv 
+    
+    mkdir drnktank 
+    cd drnktank
+    virtualenv venv -p python3
+    source venv/bin/activate 
+    
+    git init
+    git pull https://github.com/wing00/drnktank.git
+          
+    # Setup (first time)
+    
+    pip install -r requirements.txt
+    npm install
+    python manage.py migrate
+    
+    # To build the static files run server (every time)
+    
+    npm run build
+    python manage.py collectstatic --noinput
+    python manage.py runserver
+   
 
-1. Create your working environment.
-2. Install Django (`$ pip install django`)
-3. Create a new project using this template
-
-## Creating Your Project
-
-Using this template to create a new Django app is easy::
-
-    $ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile helloworld
-
-You can replace ``helloworld`` with your desired project name.
 
 ## Deployment to Heroku
 
-    $ git init
-    $ git add -A
-    $ git commit -m "Initial commit"
+* Synced with git
 
-    $ heroku create
-    $ git push heroku master
+        git remote add origin https://github.com/wing00/drnktank.git
+        ... (change files)
+        git add .
+        git commit -m "meaningful text here"
+        git push origin master
+        
 
-    $ heroku run python manage.py migrate
-
-See also, a [ready-made application](https://github.com/heroku/python-getting-started), ready to deploy.
-
-## Using Python 2.7?
-
-Just update `runtime.txt` to `python-2.7.13` (no trailing spaces or newlines!).
-
-## Further Reading
-
-- [Gunicorn](https://warehouse.python.org/project/gunicorn/)
-- [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
-- [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
+ * Making your own branch
+   
+        git branch newbranchname
+        ...
+        git add .
+        git commit -m "meaningful messages"
+        git push origin newbranchname 
+        
