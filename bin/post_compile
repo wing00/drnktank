@@ -1,0 +1,4 @@
+#!bin/bash
+export PATH=/app/.heroku/node/bin:$PATH
+npm run start
+python manage.py collectstatic --noinput
