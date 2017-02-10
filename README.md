@@ -4,7 +4,7 @@ Drinktank was taken
 
 ## Features
 
-running react.js, django, webpack
+running react.js, django, webpack, python3 on heroku
 
 ## How to Use
 
@@ -36,7 +36,6 @@ running react.js, django, webpack
     python manage.py runserver
    
 
-
 ## Deployment to Heroku
 
 * Synced with git
@@ -48,7 +47,9 @@ running react.js, django, webpack
         git push origin master
         
 
+
  * Making your own branch
+   
    
         git branch newbranchname
         ...
