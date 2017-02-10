@@ -1,6 +1,8 @@
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
+import styles from './../css/index.css';
 import 'bootstrap/dist/js/bootstrap.js';
-require('font-awesome/css/font-awesome.css');
+
 
 let React = require('react');
 let ReactDOM = require('react-dom');

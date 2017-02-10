@@ -12,7 +12,7 @@ module.exports = {
     //your current directory. You don't have to specify the extension  now,
     //because you will specify extensions later in the `resolve` section
 
-    entry: {a: './apps/front/static/front/js',
+    entry: {a: ['./apps/front/static/front/js'],
     },
     output: {
         publicPath: './static/bundles/',
