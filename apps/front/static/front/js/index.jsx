@@ -11,15 +11,13 @@ let ReactDOM = require('react-dom');
 function Circle(props) {
     if(props.value) {
         return (
-        <button className="btn btn-circle" onClick={() => props.onClick()}>
-            {props.value}
+        <button className="btn btn-default btn-circle" onClick={() => props.onClick()}>
         </button>
         );
 
     } else {
         return (
-         <button className="btn hidden" onClick={() => props.onClick()}>
-            {props.value}
+         <button className="invisible btn btn-default btn-circle" onClick={() => props.onClick()}>
          </button>
         );
     }
@@ -29,12 +27,14 @@ function Circle(props) {
 class Board extends React.Component {
   renderMyCup(i) {
       const cups = this.props.myCups;
-      return <Circle value={cups[i]}  onClick={() => this.props.onClick(i)} />;
+      const info = {"team": 0, "cup":i, "miss":false};
+      return <Circle value={cups[i]}  onClick={() => this.props.onClick(info)} />;
   }
 
   renderTheirCup(i) {
       const cups = this.props.theirCups;
-      return <Circle value={cups[i % 10]} onClick={() => this.props.onClick(i)} />;
+      const info = {"team": 1, "cup":i, "miss":false};
+      return <Circle value={cups[i]} onClick={() => this.props.onClick(info)} />;
   }
 
   render() {
@@ -64,25 +64,27 @@ class Board extends React.Component {
 
             <div className="theirBoard">
                 <div className="board-col">
-                    {this.renderTheirCup(10)}
-                    {this.renderTheirCup(11)}
-                    {this.renderTheirCup(12)}
-                    {this.renderTheirCup(13)}
+                    {this.renderTheirCup(0)}
+                    {this.renderTheirCup(1)}
+                    {this.renderTheirCup(2)}
+                    {this.renderTheirCup(3)}
                 </div>
                 <div className="board-col">
-                    {this.renderTheirCup(14)}
-                    {this.renderTheirCup(15)}
-                    {this.renderTheirCup(16)}
+                    {this.renderTheirCup(4)}
+                    {this.renderTheirCup(5)}
+                    {this.renderTheirCup(6)}
                 </div>
                 <div className="board-col">
-                    {this.renderTheirCup(17)}
-                    {this.renderTheirCup(18)}
+                    {this.renderTheirCup(7)}
+                    {this.renderTheirCup(8)}
                 </div>
                  <div className="board-col">
-                    {this.renderTheirCup(19)}
+                    {this.renderTheirCup(9)}
                 </div>
             </div>
+
         </div>
+
     );
   }
 }
@@ -92,34 +94,56 @@ class Game extends React.Component {
         super();
         this.state = {
             stepNumber: 0,
-            isNext: true,
             history: [{
                 myCups: Array(10).fill(1),
                 theirCups: Array(10).fill(1),
+                stats: [[],[],[],[]],
+
             }]
         };
     }
 
-    handleClick(e, i) {
+    handleClick(data) {
         let history = this.state.history.slice(0, this.state.stepNumber + 1);
         let current = history[history.length - 1];
         const myCups = current.myCups.slice();
         const theirCups = current.theirCups.slice();
+        const stats = current.stats.slice();
 
-        if (i < 10) {
-            myCups[i] = 0;
+        if(calculateWinner(current)) {
+            return;
+        }
+
+        if(data["miss"]) {
+            stats[this.state.stepNumber % 4].push(0);
+
         } else {
-            theirCups[i % 10] = 0;
+            stats[this.state.stepNumber % 4].push(1);
+
+            if (data["team"]) {
+                theirCups[data["cup"]] = 0;
+            } else {
+                myCups[data["cup"]] = 0;
+            }
         }
 
         this.setState({
           history: history.concat([{
               myCups: myCups,
               theirCups: theirCups,
+              stats: stats,
           }]),
           stepNumber: history.length,
-          isNext: !this.state.isNext,
+
         });
+    }
+
+    undo() {
+        if(this.state.stepNumber > 0) {
+            this.setState({
+                stepNumber: this.state.history.length - 2,
+            });
+        }
     }
 
     render() {
@@ -131,28 +155,36 @@ class Game extends React.Component {
         if(winner) {
             status = 'Winner: ' + winner;
         } else {
-            status = 'Next player: ' + (this.state.isNext ? 'You' : 'Them');
+            let names = ["You", "Partner", "Opponent 1", "Opponent 2"];
+
+            status = 'Next player: ' + (names[this.state.stepNumber % 4]);
         }
 
         return (
-          <div className="game">
-              <div className="status">{ status }</div>
-              <div className="game-board">
-                  <Board
-                      myCups={currentTurn.myCups}
-                      theirCups={currentTurn.theirCups}
-                      onClick={(i) => this.handleClick(this, i)}
-                  />
-              </div>
-          </div>
+            <div className="game">
+                <div className="status">{ status }</div>
+                <div className="game-board">
+                    <Board
+                        myCups={currentTurn.myCups}
+                        theirCups={currentTurn.theirCups}
+                        onClick={(i) => this.handleClick(i)}
+                    />
+                </div>
+                <div className="menu">
+                <button className = "btn btn-default" onClick={(i) => this.undo(i)}>
+                    <i className="fa fa-undo" aria-hidden="true"></i>
+                </button>
+                <button className = "btn btn-error" onClick={(i) => this.handleClick({"miss": true})}>
+                    Miss
+                </button>
+                </div>
+
+            </div>
         );
     }
 }
 
-ReactDOM.render(
-  <Game />,
-  document.getElementById('container')
-);
+ReactDOM.render(<Game />, document.getElementById('container'));
 
 function calculateWinner (history) {
 
