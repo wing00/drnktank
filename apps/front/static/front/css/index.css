@@ -24,6 +24,8 @@ h1 {
     position: relative;
     float: right;
     top: -120px;
+    display: inline;
+    margin-right: 70%;
 }
 
 .board-col .btn:nth-of-type(2) {
