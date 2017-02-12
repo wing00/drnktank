@@ -7,14 +7,12 @@ import 'bootstrap/dist/js/bootstrap.js';
 let React = require('react');
 let ReactDOM = require('react-dom');
 
-
 function Circle(props) {
     if(props.value) {
         return (
         <button className="btn btn-default btn-circle" onClick={() => props.onClick()}>
         </button>
         );
-
     } else {
         return (
          <button className="invisible btn btn-default btn-circle" onClick={() => props.onClick()}>
@@ -23,70 +21,67 @@ function Circle(props) {
     }
 }
 
-
 class Board extends React.Component {
-  renderMyCup(i) {
-      const cups = this.props.myCups;
-      const info = {"team": 0, "cup":i, "miss":false};
-      return <Circle value={cups[i]}  onClick={() => this.props.onClick(info)} />;
-  }
+    renderMyCup(i) {
+        const cups = this.props.myCups;
+        const info = {"team": 0, "cup":i, "miss":false};
+        return <Circle value={cups[i]}  onClick={() => this.props.onClick(info)} />;
+    }
 
-  renderTheirCup(i) {
-      const cups = this.props.theirCups;
-      const info = {"team": 1, "cup":i, "miss":false};
-      return <Circle value={cups[i]} onClick={() => this.props.onClick(info)} />;
-  }
+    renderTheirCup(i) {
+        const cups = this.props.theirCups;
+        const info = {"team": 1, "cup":i, "miss":false};
+        return <Circle value={cups[i]} onClick={() => this.props.onClick(info)} />;
+    }
 
-  render() {
-    return (
-        <div>
-            <div className="status">{status}</div>
-            <div className="myBoard">
-                <div className="board-col">
-                    {this.renderMyCup(0)}
-                    {this.renderMyCup(1)}
-                    {this.renderMyCup(2)}
-                    {this.renderMyCup(3)}
+    render() {
+        return (
+            <div>
+                <div className="status">{status}</div>
+                <div className="myBoard">
+                    <div className="board-col">
+                        {this.renderMyCup(0)}
+                        {this.renderMyCup(1)}
+                        {this.renderMyCup(2)}
+                        {this.renderMyCup(3)}
+                    </div>
+                    <div className="board-col">
+                        {this.renderMyCup(4)}
+                        {this.renderMyCup(5)}
+                        {this.renderMyCup(6)}
+                    </div>
+                    <div className="board-col">
+                        {this.renderMyCup(7)}
+                        {this.renderMyCup(8)}
+                    </div>
+                    <div className="board-col">
+                        {this.renderMyCup(9)}
+                    </div>
                 </div>
-                <div className="board-col">
-                    {this.renderMyCup(4)}
-                    {this.renderMyCup(5)}
-                    {this.renderMyCup(6)}
-                </div>
-                <div className="board-col">
-                    {this.renderMyCup(7)}
-                    {this.renderMyCup(8)}
-                </div>
-                 <div className="board-col">
-                    {this.renderMyCup(9)}
+
+                <div className="theirBoard">
+                    <div className="board-col">
+                        {this.renderTheirCup(0)}
+                        {this.renderTheirCup(1)}
+                        {this.renderTheirCup(2)}
+                        {this.renderTheirCup(3)}
+                    </div>
+                    <div className="board-col">
+                        {this.renderTheirCup(4)}
+                        {this.renderTheirCup(5)}
+                        {this.renderTheirCup(6)}
+                    </div>
+                    <div className="board-col">
+                        {this.renderTheirCup(7)}
+                        {this.renderTheirCup(8)}
+                    </div>
+                    <div className="board-col">
+                        {this.renderTheirCup(9)}
+                    </div>
                 </div>
             </div>
-
-            <div className="theirBoard">
-                <div className="board-col">
-                    {this.renderTheirCup(0)}
-                    {this.renderTheirCup(1)}
-                    {this.renderTheirCup(2)}
-                    {this.renderTheirCup(3)}
-                </div>
-                <div className="board-col">
-                    {this.renderTheirCup(4)}
-                    {this.renderTheirCup(5)}
-                    {this.renderTheirCup(6)}
-                </div>
-                <div className="board-col">
-                    {this.renderTheirCup(7)}
-                    {this.renderTheirCup(8)}
-                </div>
-                 <div className="board-col">
-                    {this.renderTheirCup(9)}
-                </div>
-            </div>
-
-        </div>
-
-    );
-  }
+        );
+      }
 }
 
 class Game extends React.Component {
@@ -98,7 +93,6 @@ class Game extends React.Component {
                 myCups: Array(10).fill(1),
                 theirCups: Array(10).fill(1),
                 stats: [[],[],[],[]],
-
             }]
         };
     }
@@ -134,7 +128,6 @@ class Game extends React.Component {
               stats: stats,
           }]),
           stepNumber: history.length,
-
         });
     }
 
@@ -152,6 +145,7 @@ class Game extends React.Component {
         const winner = calculateWinner(currentTurn);
 
         let status;
+
         if(winner) {
             status = 'Winner: ' + winner;
         } else {
@@ -162,7 +156,7 @@ class Game extends React.Component {
 
         return (
             <div className="game">
-                <div className="status">{ status }</div>
+                <div className="status">{status}</div>
                 <div className="game-board">
                     <Board
                         myCups={currentTurn.myCups}
@@ -171,12 +165,12 @@ class Game extends React.Component {
                     />
                 </div>
                 <div className="menu">
-                <button className = "btn btn-default" onClick={(i) => this.undo(i)}>
-                    <i className="fa fa-undo" aria-hidden="true"></i>
-                </button>
-                <button className = "btn btn-error" onClick={(i) => this.handleClick({"miss": true})}>
-                    Miss
-                </button>
+                    <button className = "btn btn-default" onClick={(i) => this.undo(i)}>
+                        <i className="fa fa-undo" aria-hidden="true"></i>
+                    </button>
+                    <button className = "btn btn-error" onClick={(i) => this.handleClick({"miss": true})}>
+                        Miss
+                    </button>
                 </div>
 
             </div>

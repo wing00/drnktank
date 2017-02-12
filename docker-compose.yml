@@ -1,0 +1,20 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/drnktank
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - web
+  web:
+    build: .
+    container_name: django
+    command: bash -c "gunicorn drnktank.wsgi -b 0.0.0.0:8000"
+    volumes:
+      - .:/drnktank
+    expose:
+      - "8000"

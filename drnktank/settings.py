@@ -9,17 +9,19 @@ import dj_database_url
 config = RawConfigParser()
 config.read('defaults.cfg')
 
-DEBUG = config.get('Django', 'DEBUG')
+DEBUG = config.getboolean('Django', 'DEBUG')
 SECRET_KEY = config.get('Django', 'SECRET_KEY')  # change in production
 
+DEBUG_PROPAGATE_EXCEPTIONS = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-ALLOWED_HOSTS = ['localhost',
+ALLOWED_HOSTS = ['*',
+                 'localhost',
                  '127.0.0.1',
                  'drnktank.herokuapp.com',
                  'drnktank.com',
-                 'www.drnktank.com']
+                 'www.drunktank.com']
 
 
 ROOT_URLCONF = 'drnktank.urls'
