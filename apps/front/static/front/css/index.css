@@ -11,4 +11,32 @@ h1 {
   font-size: 12px;
   line-height: 1.428571429;
   border-radius: 15px;
+  box-shadow: -3px 1px #d00909;
+  background-color: #FAC937;
+}
+
+.myBoard {
+    display: inline;
+}
+
+.theirBoard {
+    transform: scale(-1, 1);
+    position: relative;
+    float: right;
+    top: -120px;
+}
+
+.board-col .btn:nth-of-type(2) {
+    position: relative;
+    top: 15px;
+}
+
+.board-col .btn:nth-of-type(3) {
+    position: relative;
+    top: 30px;
+}
+
+.board-col .btn:nth-of-type(4) {
+    position: relative;
+    top: 45px;
 }
