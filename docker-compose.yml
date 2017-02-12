@@ -13,7 +13,7 @@ services:
   web:
     build: .
     container_name: django
-    command: bash -c "gunicorn drnktank.wsgi -b 0.0.0.0:8000"
+    command: bash -c "python manage.py migrate && npm run build && python manage.py collectstatic --noinput && gunicorn drnktank.wsgi -b 0.0.0.0:8000"
     volumes:
       - .:/drnktank
     expose:

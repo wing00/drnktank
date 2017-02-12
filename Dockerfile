@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /drnktank
 WORKDIR /drnktank
@@ -17,8 +17,5 @@ ADD requirements.txt /drnktank/
 RUN pip install -r requirements.txt
 
 ADD . /drnktank/
-RUN npm run build
 
 ENV DJANGO_SETTINGS_MODULE=drnktank.settings
-CMD python manage.py migrate
-CMD python manage.py collectstatic --noinput
