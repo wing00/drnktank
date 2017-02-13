@@ -54,6 +54,7 @@ Making your own branch
    
     git branch newbranchname
     ...
+    git checkout newbranchme
     git add .
     git commit -m "meaningful messages"
     git push origin newbranchname 
