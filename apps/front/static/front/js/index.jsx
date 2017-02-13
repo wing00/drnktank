@@ -11,11 +11,9 @@ import Game from './pong.jsx';
 class Index extends React.Component {
     render() {
         return (
-            <div>
-                <ul role="nav">
-                    <li><Link to="/game">New Game</Link></li>
-                    <li><Link to="/stats">Stats</Link></li>
-                </ul>
+            <div className="nav">
+                    <Link to="/game"><button type="button" className="btn btn-primary">New Game</button></Link>
+                    <Link to="/stats"><button type="button" className="btn btn-primary">Stats</button></Link>
             </div>
         )
     };
