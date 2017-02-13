@@ -39,7 +39,7 @@ running react.js, django, webpack, python3 on heroku
 
 ## Deployment to Heroku
 
-* Synced with git
+Synced with git
 
         
     ... (change files)
@@ -48,7 +48,7 @@ running react.js, django, webpack, python3 on heroku
     git push origin master
         
 
-* Making your own branch
+Making your own branch
    
    
     git branch newbranchname
