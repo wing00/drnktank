@@ -1,1 +1,1 @@
-{"status":"compiling","publicPath":"./static/bundles/"}
+{"status":"done","publicPath":"./static/bundles/","chunks":{"pong":[{"name":"pong-add8d742e99e65cf5499.js","publicPath":"./static/bundles/pong-add8d742e99e65cf5499.js","path":"/Users/mlaskowski/drnktank/apps/core/static/bundles/pong-add8d742e99e65cf5499.js"}]}}
