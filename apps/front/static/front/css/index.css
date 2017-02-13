@@ -15,7 +15,22 @@ h1 {
     background-color: #FAC937;
 }
 
-div#container {
+.board-col .btn:nth-of-type(2) {
+    position: relative;
+    top: 26px;
+}
+
+.board-col .btn:nth-of-type(3) {
+    position: relative;
+    top: 51px;
+}
+
+.board-col .btn:nth-of-type(4) {
+    position: relative;
+    top: 75px;
+}
+
+div#app {
     position: fixed;
     left: 50%;
     margin-top: 5%;
@@ -38,21 +53,6 @@ div#container {
     top: -200px;
     display: inline;
     margin-right: -161%;
-}
-
-.board-col .btn:nth-of-type(2) {
-    position: relative;
-    top: 26px;
-}
-
-.board-col .btn:nth-of-type(3) {
-    position: relative;
-    top: 51px;
-}
-
-.board-col .btn:nth-of-type(4) {
-    position: relative;
-    top: 75px;
 }
 
 .menu {

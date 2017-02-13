@@ -7,7 +7,7 @@ import dj_database_url
 
 
 config = RawConfigParser()
-config.read('defaults.cfg')
+config.read('config/defaults.cfg')
 
 DEBUG = config.getboolean('Django', 'DEBUG')
 SECRET_KEY = config.get('Django', 'SECRET_KEY')  # change in production

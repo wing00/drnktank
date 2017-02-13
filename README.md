@@ -21,15 +21,16 @@ running react.js, django, webpack, python3 on heroku
     source venv/bin/activate 
     
     git init
-    git pull https://github.com/wing00/drnktank.git
+    git remote add origin https://github.com/wing00/drnktank.git
+    git pull origin master
           
-    # Setup (first time)
+### Setup (first time)
     
     pip install -r requirements.txt
     npm install
     python manage.py migrate
     
-    # To build the static files run server (every time)
+### To build the static files run server (every time)
     
     npm run build
     python manage.py collectstatic --noinput
@@ -40,20 +41,19 @@ running react.js, django, webpack, python3 on heroku
 
 * Synced with git
 
-        git remote add origin https://github.com/wing00/drnktank.git
-        ... (change files)
-        git add .
-        git commit -m "meaningful text here"
-        git push origin master
+        
+    ... (change files)
+    git add .
+    git commit -m "meaningful text here"
+    git push origin master
         
 
-
- * Making your own branch
+* Making your own branch
    
    
-        git branch newbranchname
-        ...
-        git add .
-        git commit -m "meaningful messages"
-        git push origin newbranchname 
-        
+    git branch newbranchname
+    ...
+    git add .
+    git commit -m "meaningful messages"
+    git push origin newbranchname 
+    
