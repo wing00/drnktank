@@ -4,15 +4,21 @@ h1 {
 }
 
 .btn-circle {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  line-height: 1.428571429;
-  border-radius: 15px;
-  box-shadow: -3px 1px #d00909;
-  background-color: #FAC937;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 30px;
+    box-shadow: -3px 1px #d00909;
+    background-color: #FAC937;
+}
+
+div#container {
+    margin-top: 7%;
+    width: 1270px;
+    margin-left: 390px;
 }
 
 .myBoard {
@@ -23,22 +29,30 @@ h1 {
     transform: scale(-1, 1);
     position: relative;
     float: right;
-    top: -120px;
+    top: -200px;
     display: inline;
-    margin-right: 70%;
+    margin-right: 60%;
 }
 
 .board-col .btn:nth-of-type(2) {
     position: relative;
-    top: 15px;
+    top: 26px;
 }
 
 .board-col .btn:nth-of-type(3) {
     position: relative;
-    top: 30px;
+    top: 51px;
 }
 
 .board-col .btn:nth-of-type(4) {
     position: relative;
-    top: 45px;
+    top: 75px;
+}
+
+button.btn.btn-error {
+    float: right;
+}
+
+.menu .btn:nth-of-type(1) {
+    float: right;
 }
