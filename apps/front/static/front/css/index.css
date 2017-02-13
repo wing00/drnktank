@@ -18,7 +18,8 @@ h1 {
 div#container {
     margin-top: 7%;
     width: 1270px;
-    margin-left: 390px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .myBoard {
