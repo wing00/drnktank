@@ -32,7 +32,7 @@ h1 {
 
 div#app {
     position: fixed;
-    left: 50%;
+    left: 45%;
     margin-top: 5%;
     height: 100px;
 }
@@ -52,12 +52,12 @@ div#app {
     float: right;
     top: -200px;
     display: inline;
-    margin-right: -161%;
+    margin-right: -224%;
 }
 
 .menu {
     position: relative;
-    left: 54%;
+    left: 85%;
 }
 
 button.btn.btn-error {
