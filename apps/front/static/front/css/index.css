@@ -70,7 +70,7 @@ h1 {
 }
 
 div#app {
-    width: 150px;
+    width: 405px;
     height: 100px;
     margin: 0 auto;
     margin-top: 5%;
@@ -86,7 +86,7 @@ div#app {
 
 .game {
     position: relative;
-    left: -160%;
+    left: -25%;
 }
 
 .myBoard {
@@ -99,17 +99,17 @@ div#app {
     position: relative;
     float: right;
     display: inline;
-    margin-right: -317%;
+    margin-right: -49%;
 }
 
 .menu {
     position: absolute;
-    width: 360px;
+    width: 375px;
     margin: 0 auto;
     top: 1000%;
 }
 
-button.btn.btn-error {
+.menu .btn {
     font-size: 2em;
     text-transform: uppercase;
     justify-content: center;
@@ -121,18 +121,13 @@ button.btn.btn-error {
     float: right;
 }
 
-button.btn.btn-default {
-    font-size: 2em;
+.menu .button:hover {
+    font-size: 3em;
     text-transform: uppercase;
     justify-content: center;
     text-decoration: none;
     color: rgb(43, 178, 76);
-    background-color: rgba(200, 200, 200, .3);
+    background-color: rgba(100, 100, 100, .3);
     box-shadow: 1px 1px 30px 5px grey;
     border-radius: 6px;
-    float: right;
-}
-
-.menu .btn:nth-of-type(1) {
-    float: right;
 }
