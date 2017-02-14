@@ -31,33 +31,43 @@ h1 {
 }
 
 div#app {
-    position: fixed;
-    left: 45%;
-    margin-top: 5%;
+    width: 150px;
     height: 100px;
+    margin: 0 auto;
+    margin-top: 5%;
+}
+
+.nav {
+    display:inline-flex;
+}
+
+.status {
+    width: 125px;
 }
 
 .game {
     position: relative;
-    left: -130%;
+    left: -160%;
 }
 
 .myBoard {
     display: inline;
+    position: fixed;
 }
 
 .theirBoard {
     transform: scale(-1, 1);
     position: relative;
     float: right;
-    top: -200px;
     display: inline;
-    margin-right: -224%;
+    margin-right: -317%;
 }
 
 .menu {
-    position: relative;
-    left: 85%;
+    position: absolute;
+    width: 360px;
+    margin: 0 auto;
+    top: 1000%;
 }
 
 button.btn.btn-error {
