@@ -1,5 +1,6 @@
-import styles from './../css/index.css';
+import styles from './../css/pong.css';
 import React from 'react';
+import { Router, Route, Link, hashHistory } from 'react-router';
 
 
 function Circle(props) {
@@ -174,14 +175,14 @@ class Game extends React.Component {
                     />
                 </div>
                 <div className="menu">
-                    <button className = "btn btn-default">
-                        <i className="fa fa-undo" aria-hidden="true"></i>
+                    <button className = "btn btn-default" onClick={(i) => this.undo()}>
+                        <i className = "fa fa-undo" aria-hidden="true" />
                     </button>
-                    <button className = "btn btn-error" onClick={(i) => this.handleClick({"miss": true})}>
+                    <button className = "btn btn-warning" onClick={(i) => this.handleClick({"miss": true})}>
                         Miss
                     </button>
+                    <Link to="/stats"><button type="button" className="btn btn-info">Stats</button></Link>
                 </div>
-
             </div>
         );
     }

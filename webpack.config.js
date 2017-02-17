@@ -15,7 +15,7 @@ module.exports = {
     entry: {pong: ['./apps/front/static/front/js'],
     },
     output: {
-        publicPath: './static/bundles/',
+        publicPath: '/static/bundles/',
         path: path.resolve('./apps/core/static/bundles/'),
         filename: '[name]-[hash].js',
     },

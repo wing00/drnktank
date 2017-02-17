@@ -1,11 +1,13 @@
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import styles from './../css/index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, hashHistory } from 'react-router';
 import Game from './pong.jsx';
+import Stats from './stats.jsx';
 
 
 class Index extends React.Component {
@@ -13,18 +15,9 @@ class Index extends React.Component {
         return (
             <div className="nav">
                     <Link to="/game"><button type="button" className="btn btn-primary">New Game</button></Link>
-                    <Link to="/stats"><button type="button" className="btn btn-primary">Stats</button></Link>
+            {this.props.children}
             </div>
-        )
-    };
-}
 
-class Stats extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>Stats</h1>
-            </div>
         )
     };
 }
@@ -32,8 +25,9 @@ class Stats extends React.Component {
 ReactDOM.render((
     <Router history={hashHistory}>
         <Route path="/" component={Index}/>
-        <Route path="/game" component={Game}/>
         <Route path="/stats" component={Stats}/>
+        <Route path="/game" component={Game}/>
+
     </Router>
     ),
     document.getElementById('app')
