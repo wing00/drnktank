@@ -26,7 +26,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo $PUBLIC_PATH",
-    "build": "webpack"
+    "build": "webpack --config ./config/webpack/webpack.config.js"
   },
   "author": "",
   "license": "ISC",

@@ -12,7 +12,7 @@ module.exports = {
     //your current directory. You don't have to specify the extension  now,
     //because you will specify extensions later in the `resolve` section
 
-    entry: {pong: ['./apps/front/static/front/js'],
+    entry: {pong: [path.resolve('./apps/front/static/front/js')],
     },
     output: {
         publicPath: '/static/bundles/',
@@ -21,7 +21,7 @@ module.exports = {
     },
     
     plugins: [
-        new BundleTracker({filename: './webpack-stats.json'}),
+        new BundleTracker({filename: './config/webpack/webpack-stats.json'}),
         //makes jQuery available in every module
 
         new webpack.ProvidePlugin({

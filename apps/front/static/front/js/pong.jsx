@@ -46,50 +46,50 @@ class Board extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="status">{status}</div>
-                <div className="myBoard">
-                    <div className="board-col">
-                        {this.renderMyCup(0)}
-                        {this.renderMyCup(1)}
-                        {this.renderMyCup(2)}
-                        {this.renderMyCup(3)}
-                    </div>
-                    <div className="board-col">
-                        {this.renderMyCup(4)}
-                        {this.renderMyCup(5)}
-                        {this.renderMyCup(6)}
-                    </div>
-                    <div className="board-col">
-                        {this.renderMyCup(7)}
-                        {this.renderMyCup(8)}
-                    </div>
-                    <div className="board-col">
-                        {this.renderMyCup(9)}
-                    </div>
-                </div>
+                <div className="row">
+                    <div className="myBoard col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
-                <div className="theirBoard">
-                    <div className="board-col">
-                        {this.renderTheirCup(0)}
-                        {this.renderTheirCup(1)}
-                        {this.renderTheirCup(2)}
-                        {this.renderTheirCup(3)}
+                        <div className="board-col">
+                            {this.renderMyCup(0)}
+                            {this.renderMyCup(1)}
+                            {this.renderMyCup(2)}
+                            {this.renderMyCup(3)}
+                        </div>
+                        <div className="board-col">
+                            {this.renderMyCup(4)}
+                            {this.renderMyCup(5)}
+                            {this.renderMyCup(6)}
+                        </div>
+                        <div className="board-col">
+                            {this.renderMyCup(7)}
+                            {this.renderMyCup(8)}
+                        </div>
+                        <div className="board-col">
+                            {this.renderMyCup(9)}
+                        </div>
                     </div>
-                    <div className="board-col">
-                        {this.renderTheirCup(4)}
-                        {this.renderTheirCup(5)}
-                        {this.renderTheirCup(6)}
-                    </div>
-                    <div className="board-col">
-                        {this.renderTheirCup(7)}
-                        {this.renderTheirCup(8)}
-                    </div>
-                    <div className="board-col">
-                        {this.renderTheirCup(9)}
+
+                    <div className="theirBoard col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div className="board-col">
+                            {this.renderTheirCup(0)}
+                            {this.renderTheirCup(1)}
+                            {this.renderTheirCup(2)}
+                            {this.renderTheirCup(3)}
+                        </div>
+                        <div className="board-col">
+                            {this.renderTheirCup(4)}
+                            {this.renderTheirCup(5)}
+                            {this.renderTheirCup(6)}
+                        </div>
+                        <div className="board-col">
+                            {this.renderTheirCup(7)}
+                            {this.renderTheirCup(8)}
+                        </div>
+                        <div className="board-col">
+                            {this.renderTheirCup(9)}
+                        </div>
                     </div>
                 </div>
-            </div>
         );
       }
 }
@@ -165,23 +165,30 @@ class Game extends React.Component {
         }
 
         return (
-            <div className="game">
-                <div className="status">{status}</div>
-                <div className="game-board">
+
+            <div className="game container">
+                <div className="row">
+                    <div className="status">{status}</div>
+                </div>
+                <div className="row">
+                    <div className="game-board">
                     <Board
                         myCups={currentTurn.myCups}
                         theirCups={currentTurn.theirCups}
                         onClick={(i) => this.handleClick(i)}
                     />
+                    </div>
                 </div>
-                <div className="menu">
-                    <button className = "btn btn-default" onClick={(i) => this.undo()}>
-                        <i className = "fa fa-undo" aria-hidden="true" />
-                    </button>
-                    <button className = "btn btn-warning" onClick={(i) => this.handleClick({"miss": true})}>
-                        Miss
-                    </button>
-                    <Link to="/stats"><button type="button" className="btn btn-info">Stats</button></Link>
+                <div className="row">
+                    <div className="menu col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <button className = "btn btn-default" onClick={(i) => this.undo()}>
+                            <i className = "fa fa-undo" aria-hidden="true" />
+                        </button>
+                        <button className = "btn btn-warning" onClick={(i) => this.handleClick({"miss": true})}>
+                            Miss
+                        </button>
+                        <Link to="/stats"><button type="button" className="btn btn-info">Stats</button></Link>
+                    </div>
                 </div>
             </div>
         );

@@ -15,9 +15,8 @@ class Index extends React.Component {
         return (
             <div className="nav">
                     <Link to="/game"><button type="button" className="btn btn-primary">New Game</button></Link>
-            {this.props.children}
+                {this.props.children}
             </div>
-
         )
     };
 }

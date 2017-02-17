@@ -125,7 +125,7 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': 'bundles/',  # must end with slash
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+        'STATS_FILE': os.path.join(BASE_DIR, './config/webpack/webpack-stats.json'),
         'POLL_INTERVAL': 10,
         'TIMEOUT': None,
         'IGNORE': ['.+\.hot-update.js', '.+\.map']

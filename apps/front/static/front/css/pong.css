@@ -43,7 +43,6 @@ h1 {
     background: linear-gradient(#ccc, #eee, #fcf8e3);
 }
 
-
 .btn-circle:hover {
     width: 50px;
     height: 50px;
@@ -55,6 +54,23 @@ h1 {
     box-shadow: -3px 9px red;
 }
 
+. {
+
+}
+
+
+.status {
+    width: 160px;
+}
+
+.myBoard {
+
+}
+
+.theirBoard {
+    transform: scale(-1, 1);
+
+}
 
 .board-col .btn:nth-of-type(2) {
     position: relative;
@@ -71,33 +87,8 @@ h1 {
     top: 75px;
 }
 
-.status {
-    width: 160px;
-}
-
-.game {
-    position: relative;
-    left: -25%;
-}
-
-.myBoard {
-    display: inline;
-    position: fixed;
-}
-
-.theirBoard {
-    transform: scale(-1, 1);
-    position: relative;
-    float: right;
-    display: inline;
-    margin-right: -49%;
-}
-
 .menu {
-    position: absolute;
-    width: 375px;
-    margin: 0 auto;
-    top: 1000%;
+
 }
 
 .menu .btn {
@@ -121,8 +112,4 @@ h1 {
     background-color: rgba(100, 100, 100, .3);
     box-shadow: 1px 1px 30px 5px grey;
     border-radius: 6px;
-}
-
-.nav {
-    display:inline-flex;
 }
