@@ -174,7 +174,7 @@ class Game extends React.Component {
                     />
                 </div>
                 <div className="menu">
-                    <button className = "btn btn-default" onClick={(i) => this.undo(i)}>
+                    <button className = "btn btn-default">
                         <i className="fa fa-undo" aria-hidden="true"></i>
                     </button>
                     <button className = "btn btn-error" onClick={(i) => this.handleClick({"miss": true})}>
