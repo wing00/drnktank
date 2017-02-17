@@ -13,10 +13,17 @@ import Stats from './stats.jsx';
 class Index extends React.Component {
     render() {
         return (
-            <div className="nav">
-                    <Link to="/game"><button type="button" className="btn btn-primary">New Game</button></Link>
-                {this.props.children}
-            </div>
+            <div className="container">
+                <div className="row">
+                    <div className="col-xs-12 col-md-12 col-lg-12 col-xl-12">
+                        <div className="nav">
+
+                            <Link to="/game"><button type="button" className="btn btn-primary">New Game</button></Link>
+                        {this.props.children}
+                        </div>
+                    </div>
+                </div>
+                </div>
         )
     };
 }
@@ -26,7 +33,6 @@ ReactDOM.render((
         <Route path="/" component={Index}/>
         <Route path="/stats" component={Stats}/>
         <Route path="/game" component={Game}/>
-
     </Router>
     ),
     document.getElementById('app')
