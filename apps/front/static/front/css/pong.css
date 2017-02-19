@@ -87,10 +87,6 @@ h1 {
     top: 75px;
 }
 
-.menu {
-
-}
-
 .menu .btn {
     font-size: 2em;
     text-transform: uppercase;
@@ -100,7 +96,6 @@ h1 {
     background-color: rgba(200, 200, 200, .3);
     box-shadow: 1px 1px 30px 5px grey;
     border-radius: 6px;
-    float: right;
 }
 
 .menu .button:hover {

@@ -180,14 +180,14 @@ class Game extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="menu col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div className="menu col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <Link to="/stats"><button type="button" className="btn btn-info">Stats</button></Link>
+                       <button className = "btn btn-warning" onClick={(i) => this.handleClick({"miss": true})}>
+                            Miss
+                        </button>
                         <button className = "btn btn-default" onClick={(i) => this.undo()}>
                             <i className = "fa fa-undo" aria-hidden="true" />
                         </button>
-                        <button className = "btn btn-warning" onClick={(i) => this.handleClick({"miss": true})}>
-                            Miss
-                        </button>
-                        <Link to="/stats"><button type="button" className="btn btn-info">Stats</button></Link>
                     </div>
                 </div>
             </div>
