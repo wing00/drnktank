@@ -63,13 +63,8 @@ h1 {
     width: 160px;
 }
 
-.myBoard {
-
-}
-
 .theirBoard {
     transform: scale(-1, 1);
-
 }
 
 .board-col .btn:nth-of-type(2) {
@@ -107,4 +102,10 @@ h1 {
     background-color: rgba(100, 100, 100, .3);
     box-shadow: 1px 1px 30px 5px grey;
     border-radius: 6px;
+}
+
+a, a:hover, a:visited, a:link, a:active
+{
+    color: white;
+    text-decoration: none;
 }
