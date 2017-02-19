@@ -3,6 +3,26 @@ import React from 'react';
 import { Router, Route, Link, hashHistory } from 'react-router';
 
 
+function PlayerIcon(props) {
+    if(props.current == props.value) {
+        return (
+            <div className="player current-player">
+                {props.value} <br />
+                <i className="fa fa-2x fa-user-circle" />
+            </div>
+
+        );
+    }  else {
+        return (
+            <div className="player">
+                {props.value} <br />
+                <i className="fa fa-2x fa-user" />
+            </div>
+
+        );
+    }
+}
+
 function Circle(props) {
     if(props.value) {
         return (
@@ -153,37 +173,52 @@ class Game extends React.Component {
         const history = this.state.history;
         const currentTurn = history[this.state.stepNumber];
         const winner = calculateWinner(currentTurn);
+        let names = ["You", "Partner", "Opponent 1", "Opponent 2"];
+        const currentPlayer = names[this.state.stepNumber % 4];
 
         let status;
 
         if(winner) {
             status = 'Winner: ' + winner;
         } else {
-            let names = ["You", "Partner", "Opponent 1", "Opponent 2"];
-
-            status = 'Next player: ' + (names[this.state.stepNumber % 4]);
+            status = 'Next player: ' + currentPlayer;
         }
 
         return (
-
             <div className="game container">
                 <div className="row">
-                    <div className="status">{status}</div>
+                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <div className="status">{status}</div>
+                    </div>
+                </div>
+                 <div className="row">
+                    <div className="myTeamIcons col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+                        <PlayerIcon value={names[0]} current={currentPlayer} onClick={() => this.props.onClick(names[0])} />
+                        <PlayerIcon value={names[1]} current={currentPlayer} onClick={() => this.props.onClick(names[1])} />
+                    </div>
+                     <div className="theirTeamIcons col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+                        <PlayerIcon value={names[2]} current={currentPlayer} onClick={() => this.props.onClick(names[2])} />
+                        <PlayerIcon value={names[3]} current={currentPlayer} onClick={() => this.props.onClick(names[3])} />
+                    </div>
                 </div>
                 <div className="row">
                     <div className="game-board">
-                    <Board
-                        myCups={currentTurn.myCups}
-                        theirCups={currentTurn.theirCups}
-                        onClick={(i) => this.handleClick(i)}
-                    />
+                        <Board
+                            myCups={currentTurn.myCups}
+                            theirCups={currentTurn.theirCups}
+                            onClick={(i) => this.handleClick(i)}
+                        />
                     </div>
                 </div>
                 <div className="row">
                     <div className="menu col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        <Link to="/stats"><button type="button" className="btn btn-info">Stats</button></Link>
-                       <button className = "btn btn-warning" onClick={(i) => this.handleClick({"miss": true})}>
-                            Miss
+                        <Link to="/stats">
+                            <button type="button" className="btn btn-info">
+                                <i className = "fa fa-bar-chart" aria-hidden="true" />
+                            </button>
+                        </Link>
+                        <button className = "btn btn-warning" onClick={(i) => this.handleClick({"miss": true})}>
+                             <i className = "fa fa-times" aria-hidden="true" />
                         </button>
                         <button className = "btn btn-default" onClick={(i) => this.undo()}>
                             <i className = "fa fa-undo" aria-hidden="true" />
