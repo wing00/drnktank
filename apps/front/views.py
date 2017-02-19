@@ -4,11 +4,25 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from django.templatetags.static import static
 
 class IndexView(TemplateView):
     template_name = "front/index.html"
     title = "DrnkTank"
+
+
+class SoundMakeJSON(APIView):
+    def get(self, request, format=None):
+        sound_urls = [static('sounds/make{}.mp3'.format(i)) for i in range(4)]
+
+        return Response({"sounds": sound_urls})
+
+
+class SoundMissJSON(APIView):
+    def get(self, request, format=None):
+        sound_urls = [static('sounds/miss{}.mp3'.format(i)) for i in range(4)]
+
+        return Response({"sounds": sound_urls})
 
 
 class TestView(APIView):

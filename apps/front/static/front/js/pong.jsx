@@ -8,17 +8,17 @@ function PlayerIcon(props) {
         return (
             <div className="player current-player">
                 {props.value} <br />
-                <i className="fa fa-2x fa-user-circle" />
+                <i className="fa fa-2x fa-user-circle" /> <br />
+                {props.stats} <br />
             </div>
-
         );
     }  else {
         return (
             <div className="player">
                 {props.value} <br />
-                <i className="fa fa-2x fa-user" />
+                <i className="fa fa-2x fa-user" /> <br />
+                {props.stats} <br />
             </div>
-
         );
     }
 }
@@ -49,6 +49,10 @@ function calculateWinner (history) {
         return "You";
     }
     return false;
+}
+
+function calculateStats(stats, player) {
+    return stats[player].reduce(function(x, y) {return x + y;}, 0);
 }
 
 class Board extends React.Component {
@@ -127,6 +131,18 @@ class Game extends React.Component {
         };
     }
 
+    getMakeSound() {
+        $.getJSON('/sounds/make', function (json) {
+            return json;
+        });
+    }
+
+    getMissSound() {
+        $.getJSON('/sounds/miss', function (json) {
+            return json;
+        });
+    }
+
     handleClick(data) {
         let history = this.state.history.slice(0, this.state.stepNumber + 1);
         let current = history[history.length - 1];
@@ -172,6 +188,7 @@ class Game extends React.Component {
     render() {
         const history = this.state.history;
         const currentTurn = history[this.state.stepNumber];
+        const stats = currentTurn.stats;
         const winner = calculateWinner(currentTurn);
         let names = ["You", "Partner", "Opponent 1", "Opponent 2"];
         const currentPlayer = names[this.state.stepNumber % 4];
@@ -193,20 +210,36 @@ class Game extends React.Component {
                 </div>
                  <div className="row">
                     <div className="myTeamIcons col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                        <PlayerIcon value={names[0]} current={currentPlayer} onClick={() => this.props.onClick(names[0])} />
-                        <PlayerIcon value={names[1]} current={currentPlayer} onClick={() => this.props.onClick(names[1])} />
+                        <PlayerIcon
+                            value={names[0]}
+                            current={currentPlayer}
+                            stats={calculateStats(stats, 0)}
+                            onClick={() => this.props.onClick(names[0])}
+                        />
+                        <PlayerIcon value={names[1]}
+                                    current={currentPlayer}
+                                    stats={calculateStats(stats, 1)}
+                                    onClick={() => this.props.onClick(names[1])}
+                        />
                     </div>
                      <div className="theirTeamIcons col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                        <PlayerIcon value={names[2]} current={currentPlayer} onClick={() => this.props.onClick(names[2])} />
-                        <PlayerIcon value={names[3]} current={currentPlayer} onClick={() => this.props.onClick(names[3])} />
+                        <PlayerIcon value={names[2]}
+                                    current={currentPlayer}
+                                    stats={calculateStats(stats, 2)}
+                                    onClick={() => this.props.onClick(names[2])}
+                        />
+                        <PlayerIcon value={names[3]}
+                                    current={currentPlayer}
+                                    stats={calculateStats(stats, 3)}
+                                    onClick={() => this.props.onClick(names[3])}
+                        />
                     </div>
                 </div>
                 <div className="row">
                     <div className="game-board">
-                        <Board
-                            myCups={currentTurn.myCups}
-                            theirCups={currentTurn.theirCups}
-                            onClick={(i) => this.handleClick(i)}
+                        <Board myCups={currentTurn.myCups}
+                               theirCups={currentTurn.theirCups}
+                               onClick={(i) => this.handleClick(i)}
                         />
                     </div>
                 </div>
@@ -229,5 +262,4 @@ class Game extends React.Component {
         );
     }
 }
-
 export default Game;

@@ -10,7 +10,10 @@ import Game from './pong.jsx';
 import Stats from './stats.jsx';
 
 
+
+
 class Index extends React.Component {
+
     render() {
         return (
             <div className="container">
@@ -19,11 +22,15 @@ class Index extends React.Component {
                         <div className="nav">
 
                             <Link to="/game"><button type="button" className="btn btn-primary">New Game</button></Link>
-                        {this.props.children}
+                            <Link to="/stats"><button type="button" className="btn btn-primary">Stats</button></Link>
+
+                            {this.props.children}
+
+
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
         )
     };
 }
