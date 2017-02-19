@@ -104,7 +104,7 @@ h1 {
     border-radius: 6px;
 }
 
-a, a:hover, a:visited, a:link, a:active
+.title a, a:hover, a:visited, a:link, a:active
 {
     color: white;
     text-decoration: none;
