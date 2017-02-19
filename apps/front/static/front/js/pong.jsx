@@ -148,7 +148,7 @@ class Game extends React.Component {
         let current = history[history.length - 1];
         const myCups = current.myCups.slice();
         const theirCups = current.theirCups.slice();
-        const stats = current.stats.slice();
+        const stats = current.stats.map(function(data) {return data.slice()});
 
         if(calculateWinner(current)) {
             return;
@@ -178,6 +178,7 @@ class Game extends React.Component {
     }
 
     undo() {
+        console.log(this.state.history);
         if(this.state.stepNumber > 0) {
             this.setState({
                 stepNumber: this.state.history.length - 2,
@@ -209,19 +210,19 @@ class Game extends React.Component {
                     </div>
                 </div>
                  <div className="row">
-                    <div className="myTeamIcons col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                        <PlayerIcon
+                     <div className="myTeamIcons col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+                         <PlayerIcon
                             value={names[0]}
                             current={currentPlayer}
                             stats={calculateStats(stats, 0)}
                             onClick={() => this.props.onClick(names[0])}
-                        />
-                        <PlayerIcon value={names[1]}
+                         />
+                         <PlayerIcon value={names[1]}
                                     current={currentPlayer}
                                     stats={calculateStats(stats, 1)}
                                     onClick={() => this.props.onClick(names[1])}
-                        />
-                    </div>
+                         />
+                     </div>
                      <div className="theirTeamIcons col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
                         <PlayerIcon value={names[2]}
                                     current={currentPlayer}
@@ -243,6 +244,7 @@ class Game extends React.Component {
                         />
                     </div>
                 </div>
+
                 <div className="row">
                     <div className="menu col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                         <Link to="/stats">
