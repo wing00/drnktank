@@ -55,33 +55,17 @@ function calculateStats(stats, player) {
     return stats[player].reduce(function(x, y) {return x + y;}, 0);
 }
 
-function playRandomMakeSound() { 
-    var player = $('#player')[0]; 
-    var sourceMp3 = $('#sourceMp3')[0];  
-    var jsonObject;  
-    $.getJSON('/sounds/make', function (json) { 
-        jsonObject = json; 
-        var makeSounds = jsonObject.sounds; 
-        var randSound = makeSounds[Math.floor(Math.random() * 3)]; 
-        sourceMp3.src='' + randSound + ''; 
-        player.load(); 
-        player.play(); 
+function playRandomSound(soundType) { 
+    let player = $('#player'); 
+
+    $.getJSON('/sounds/' + soundType, function (json) { 
+        let soundsList = json['sounds']; 
+
+        player.find('source')[0].src = soundsList[Math.floor(Math.random() * 3)]; 
+        player[0].load();
+        player[0].play();
     });
   }
-
-function playRandomMissSound () {
-    var player = $('#player')[0]; 
-    var sourceMp3 = $('#sourceMp3')[0];  
-    var jsonObject;  
-    $.getJSON('/sounds/miss', function (json) { 
-        jsonObject = json; 
-        var missSounds = jsonObject.sounds; 
-        var randSound = missSounds[Math.floor(Math.random() * 3)]; 
-        sourceMp3.src='' + randSound + ''; 
-        player.load(); 
-        player.play(); 
-    });
-}
 
 class Board extends React.Component {
     renderMyCup(i) {
@@ -159,18 +143,6 @@ class Game extends React.Component {
         };
     }
 
-    getMakeSound() {
-        $.getJSON('/sounds/make', function (json) {
-            return json;
-        });
-    }
-
-    getMissSound() {
-        $.getJSON('/sounds/miss', function (json) {
-            return json;
-        });
-    }
-
     handleClick(data) {
         let history = this.state.history.slice(0, this.state.stepNumber + 1);
         let current = history[history.length - 1];
@@ -184,7 +156,7 @@ class Game extends React.Component {
 
         if(data["miss"]) {
             stats[this.state.stepNumber % 4].push(0);
-            playRandomMissSound();
+            playRandomSound('miss');
 
         } else {
             stats[this.state.stepNumber % 4].push(1);
@@ -194,21 +166,21 @@ class Game extends React.Component {
             } else {
                 myCups[data["cup"]] = 0;
             }
-            playRandomMakeSound();
+            playRandomSound('make');
         }
 
         this.setState({
-          history: history.concat([{
-              myCups: myCups,
-              theirCups: theirCups,
-              stats: stats,
-          }]),
-          stepNumber: history.length,
+            history: history.concat([{
+                myCups: myCups,
+                theirCups: theirCups,
+                stats: stats,
+            }]),
+            stepNumber: history.length,
         });
     }
 
     undo() {
-        console.log(this.state.history);
+
         if(this.state.stepNumber > 0) {
             this.setState({
                 stepNumber: this.state.history.length - 2,

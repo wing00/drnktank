@@ -11,17 +11,14 @@ class IndexView(TemplateView):
     title = "DrnkTank"
 
 
-class SoundMakeJSON(APIView):
-    def get(self, request, format=None):
-        sound_urls = [static('sounds/make{}.mp3'.format(i)) for i in range(4)]
-
-        return Response({"sounds": sound_urls})
-
-
-class SoundMissJSON(APIView):
-    def get(self, request, format=None):
-        sound_urls = [static('sounds/miss{}.mp3'.format(i)) for i in range(4)]
-
+class SoundsJSON(APIView):
+    def get(self, request, slug, format=None):
+        if slug == 'make':
+            sound_urls = [static('sounds/make{}.mp3'.format(i)) for i in range(4)]
+        elif slug == 'miss':
+            sound_urls = [static('sounds/miss{}.mp3'.format(i)) for i in range(3)]
+        else:
+            return Response({})
         return Response({"sounds": sound_urls})
 
 

@@ -7,6 +7,6 @@ staticfiles
 db.sqlite3
 /npm-debug.log
 /node_modules/
-/apps/core/static/*
+/apps/core/static/bundles
 webpack-stats.json
 
