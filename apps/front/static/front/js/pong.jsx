@@ -55,6 +55,34 @@ function calculateStats(stats, player) {
     return stats[player].reduce(function(x, y) {return x + y;}, 0);
 }
 
+function playRandomMakeSound() { 
+    var player = $('#player')[0]; 
+    var sourceMp3 = $('#sourceMp3')[0];  
+    var jsonObject;  
+    $.getJSON('/sounds/make', function (json) { 
+        jsonObject = json; 
+        var makeSounds = jsonObject.sounds; 
+        var randSound = makeSounds[Math.floor(Math.random() * 3)]; 
+        sourceMp3.src='' + randSound + ''; 
+        player.load(); 
+        player.play(); 
+    });
+  }
+
+function playRandomMissSound () {
+    var player = $('#player')[0]; 
+    var sourceMp3 = $('#sourceMp3')[0];  
+    var jsonObject;  
+    $.getJSON('/sounds/miss', function (json) { 
+        jsonObject = json; 
+        var missSounds = jsonObject.sounds; 
+        var randSound = missSounds[Math.floor(Math.random() * 3)]; 
+        sourceMp3.src='' + randSound + ''; 
+        player.load(); 
+        player.play(); 
+    });
+}
+
 class Board extends React.Component {
     renderMyCup(i) {
         const cups = this.props.myCups;
@@ -156,6 +184,7 @@ class Game extends React.Component {
 
         if(data["miss"]) {
             stats[this.state.stepNumber % 4].push(0);
+            playRandomMissSound();
 
         } else {
             stats[this.state.stepNumber % 4].push(1);
@@ -165,6 +194,7 @@ class Game extends React.Component {
             } else {
                 myCups[data["cup"]] = 0;
             }
+            playRandomMakeSound();
         }
 
         this.setState({
