@@ -1,6 +1,7 @@
 import styles from './../css/pong.css';
 import React from 'react';
 import { Router, Route, Link, hashHistory } from 'react-router';
+import Confetti from 'react-confetti';
 
 
 function PlayerIcon(props) {
@@ -70,10 +71,10 @@ function calculateWinner (history) {
     let theirCupCount = history.theirCups.reduce(function(x, y) {return x+y;}, 0);
 
     if(myCupCount == 0) {
-        return "Opponents";
+        return "Red Team";
 
     } else if(theirCupCount == 0) {
-        return "You";
+        return "Blue Team";
     }
     return false;
 }
@@ -254,23 +255,18 @@ class Game extends React.Component {
         let names = ["You", "Partner", "Opponent 1", "Opponent 2"];
         const currentPlayer = names[this.state.stepNumber % 4];
 
-        let status;
-
-        if(winner) {
-            status = 'Winner: ' + winner;
-        } else {
-            status = 'Next player: ' + currentPlayer;
-        }
 
         return (
             <div className="game container">
+                {winner && <Confetti />}
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                         <div className="status">{status}</div>
                     </div>
                 </div>
                  <div className="row">
-                     <div className="myTeamIcons col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+                     <div className="myTeamIcons col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                         <h2>Blue Team</h2>
                          <PlayerIcon
                             value={names[0]}
                             current={currentPlayer}
@@ -283,7 +279,21 @@ class Game extends React.Component {
                                     onClick={() => this.props.onClick(names[1])}
                          />
                      </div>
-                     <div className="theirTeamIcons col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+                     <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                         {winner ? (
+                             <div className="status text-center">
+                                 <h4>Winner: {winner}</h4>
+                             </div>
+                             ): (
+                              <div className="status text-center">
+
+                             <h4>Next player: {currentPlayer}</h4>
+                              </div>
+                         )}
+
+                     </div>
+                     <div className="theirTeamIcons col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                         <h2>Red Team</h2>
                         <PlayerIcon value={names[2]}
                                     current={currentPlayer}
                                     stats={calculateStats(stats, 2)}
