@@ -56,23 +56,17 @@ function calculateStats(stats, player) {
 
 function playRandomSound(soundType) { 
     let player = $('#player'); 
-
     let soundsList = JSON.parse(localStorage.getItem(soundType));
 
-    if(soundsList) {
-        player.find('source')[0].src = soundsList.sounds[Math.floor(Math.random() * 3)];
-        player[0].load();
-        player[0].play();
-    } else {
+    if(!soundsList) {
         $.getJSON('/sounds/' + soundType, function (json) {
             localStorage.setItem(soundType, JSON.stringify(json));
+            soundsList = json;
         });
-
-        soundsList = JSON.parse(localStorage.getItem(soundType));
-        player.find('source')[0].src = soundsList.sounds[Math.floor(Math.random() * 3)];
-        player[0].load();
-        player[0].play();
     }
+    player.find('source')[0].src = soundsList.sounds[Math.floor(Math.random() * 3)];
+    player[0].load();
+    player[0].play();
   }
 
 class Board extends React.Component {
