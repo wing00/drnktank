@@ -2,13 +2,29 @@ import styles from './../css/pong.css';
 import React from 'react';
 import { Router, Route, Link, hashHistory } from 'react-router';
 
+
 function PlayerIcon(props) {
+    const onFire = props.stats[2];
+
     if(props.current == props.value) {
         return (
             <div className="player current-player">
                 {props.value} <br />
                 <i className="fa fa-2x fa-user-circle" /> <br />
-                {props.stats} <br />
+                {props.stats[1].map(function(object, num){
+                    if (onFire) {
+                        return (
+                            <i className="fa fa-fire" key={num} />
+                        );
+                    } else {
+                        return (
+                            <i className="fa fa-circle" key={num} />
+                        );
+                    }
+                })}
+                <br />
+
+                {props.stats[0]} <br />
             </div>
         );
     }  else {
@@ -16,7 +32,19 @@ function PlayerIcon(props) {
             <div className="player">
                 {props.value} <br />
                 <i className="fa fa-2x fa-user" /> <br />
-                {props.stats} <br />
+                {props.stats[1].map(function(object, num){
+                    if (onFire) {
+                        return (
+                            <i className="fa fa-fire" key={num} />
+                        );
+                    } else {
+                        return (
+                            <i className="fa fa-circle" key={num} />
+                        );
+                    }
+                })}
+                <br />
+                {props.stats[0]} <br />
             </div>
         );
     }
@@ -51,22 +79,38 @@ function calculateWinner (history) {
 }
 
 function calculateStats(stats, player) {
-    return stats[player].reduce(function(x, y) {return (y > -1) ? x + 1 : x;}, 0);
+    let cupCount = stats[player].reduce(function(x, y) {return (y > -1) ? x + 1 : x;}, 0);
+    let lastThree = stats[player].slice(-3).reverse();
+    let fireArray = [];
+    for (let i = 0; i < lastThree.length ; i++) {
+        if (lastThree[i] == -1) {
+            break;
+        }
+        fireArray.push(1);
+    }
+    let onFire = fireArray.length == 3;
+
+    return [cupCount, fireArray, onFire]
 }
 
 function playRandomSound(soundType) { 
     let player = $('#player'); 
     let soundsList = JSON.parse(localStorage.getItem(soundType));
 
-    if(!soundsList) {
+    if(soundsList) {
         $.getJSON('/sounds/' + soundType, function (json) {
             localStorage.setItem(soundType, JSON.stringify(json));
             soundsList = json;
+            //async
+            player.find('source')[0].src = soundsList.sounds[Math.floor(Math.random() * 3)];
+            player[0].load();
+            player[0].play();
         });
+    } else {
+        player.find('source')[0].src = soundsList.sounds[Math.floor(Math.random() * 3)];
+        player[0].load();
+        player[0].play();
     }
-    player.find('source')[0].src = soundsList.sounds[Math.floor(Math.random() * 3)];
-    player[0].load();
-    player[0].play();
   }
 
 class Board extends React.Component {
