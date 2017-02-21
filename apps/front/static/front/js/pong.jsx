@@ -98,17 +98,17 @@ function playRandomSound(soundType) { 
     let player = $('#player'); 
     let soundsList = JSON.parse(localStorage.getItem(soundType));
 
-    if(soundsList) {
+    if(soundsList == null) {
         $.getJSON('/sounds/' + soundType, function (json) {
             localStorage.setItem(soundType, JSON.stringify(json));
-            soundsList = json;
             //async
-            player.find('source')[0].src = soundsList.sounds[Math.floor(Math.random() * 3)];
+            player.find('source')[0].src = json['sounds'][Math.floor(Math.random() * 3)];
             player[0].load();
             player[0].play();
+
         });
     } else {
-        player.find('source')[0].src = soundsList.sounds[Math.floor(Math.random() * 3)];
+        player.find('source')[0].src = soundsList['sounds'][Math.floor(Math.random() * 3)];
         player[0].load();
         player[0].play();
     }
@@ -279,7 +279,7 @@ class Game extends React.Component {
                                     onClick={() => this.props.onClick(names[1])}
                          />
                      </div>
-                     <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                     <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                          {winner ? (
                              <div className="status text-center">
                                  <h4>Winner: {winner}</h4>
