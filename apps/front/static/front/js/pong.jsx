@@ -188,6 +188,18 @@ class Game extends React.Component {
         }
     }
 
+    mute() {
+        let player = $('#player'); 
+        let muteButton = $('#muteBtn');
+        if (player[0].muted) {
+            muteButton.find('i').removeClass('fa fa-volume-off').addClass('fa fa-volume-up');
+        }
+        else {
+            muteButton.find('i').removeClass('fa fa-volume-up').addClass('fa fa-volume-off');
+        }
+        player[0].muted = !player[0].muted;
+    }
+
     render() {
         const history = this.state.history;
         const currentTurn = history[this.state.stepNumber];
@@ -249,6 +261,9 @@ class Game extends React.Component {
 
                 <div className="row">
                     <div className="menu col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <button id = "muteBtn" className="btn btn-default" onClick={(i) => this.mute()}>
+                            <i className="fa fa-volume-up" aria-hidden="true" />
+                        </button>
                         <Link to="/stats">
                             <button type="button" className="btn btn-info">
                                 <i className = "fa fa-bar-chart" aria-hidden="true" />
