@@ -2,50 +2,58 @@
 .btn-primary {
     font-size: 3em;
     text-transform: uppercase;
+    font-weight: bold;
     justify-content: center;
     text-decoration: none;
     color: rgb(43, 178, 76);
     background-color: rgba(200, 200, 200, .3);
-    box-shadow: 1px 1px 20px 3px grey;
+    box-shadow: inset 0px 0px 0px 3px grey;
     border-radius: 6px;
+    margin-right: 5px;
 }
-.btn-primary:hover {
-    font-size: 3em;
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
     text-transform: uppercase;
+    font-weight: bold;
     justify-content: center;
     text-decoration: none;
     color: rgb(43, 178, 76);
-    background-color: rgba(100, 100, 100, .3);
-    box-shadow: 1px 1px 30px 5px grey;
+    background-color: white;
+    box-shadow: inset 0px 0px 0px 3px rgb(43, 178, 76);
     border-radius: 6px;
+    margin-right: 5px;
 }
 
 .btn-circle {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     text-align: center;
     padding: 6px 0;
     font-size: 12px;
-    line-height: 1.428571429;
-    border-radius: 30px;
-    box-shadow: -3px 9px red;
-    background: linear-gradient(#ccc, #eee, #fcf8e3);
+    line-height: 1 .428571429;
+    border-radius: 50px;
+    box-shadow: 0px 20px red;
+    background: linear-gradient(#ccc,   #eee,   #fcf8e3);
+    border-style: inset;
+    border-width: 3px;
+    border-color: grey;
 }
 
 .btn-circle:hover {
-    width: 50px;
-    height: 50px;
+    background: rgba(43, 178, 76, 1);
+    border-color: black;
+    border-width: 5px;
+    border-style: outset;
+    width: 70px;
+    height: 70px;
     text-align: center;
     padding: 6px 0;
     font-size: 12px;
-    line-height: 1.428571429;
-    border-radius: 30px;
-    box-shadow: -3px 15px red;
-    background: rgba(43, 178, 76, .8);
-    border-color: grey;
-    border-width: 5px;
-    border-style: double;
+    line-height: 1 .428571429;
+    border-radius: 50px;
+    box-shadow: 0px 20 px red;
 }
+
 
 
 .status {
@@ -58,39 +66,43 @@
 
 .board-col .btn:nth-of-type(2) {
     position: relative;
-    top: 26px;
+    top: 38px;
 }
 
 .board-col .btn:nth-of-type(3) {
     position: relative;
-    top: 51px;
+    top: 72px;
 }
 
 .board-col .btn:nth-of-type(4) {
     position: relative;
-    top: 75px;
+    top: 109px;
 }
 
 .menu .btn {
     font-size: 2em;
     text-transform: uppercase;
+    font-weight: bold;
     justify-content: center;
     text-decoration: none;
     color: rgb(43, 178, 76);
     background-color: rgba(200, 200, 200, .3);
-    box-shadow: 1px 1px 30px 5px grey;
+    box-shadow: inset 0px 0px 0px 3px grey;
     border-radius: 6px;
+    margin-right: 5px;
 }
 
-.menu .button:hover {
-    font-size: 3em;
+.menu .button:hover, .button:active, .button:focus {
+    font-size: 2em;
     text-transform: uppercase;
+    font-weight: bold;
     justify-content: center;
     text-decoration: none;
     color: rgb(43, 178, 76);
-    background-color: rgba(100, 100, 100, .3);
-    box-shadow: 1px 1px 30px 5px grey;
+    background-color: white;
+    box-shadow: inset 0px 0px 0px 3px rgb(43, 178, 76);
     border-radius: 6px;
+    margin-right: 5px;
 }
 
 .title h1 {
