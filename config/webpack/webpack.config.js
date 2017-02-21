@@ -19,7 +19,7 @@ module.exports = {
         path: path.resolve('./apps/core/static/bundles/'),
         filename: '[name]-[hash].js',
     },
-    
+
     plugins: [
         new BundleTracker({filename: './config/webpack/webpack-stats.json'}),
         //makes jQuery available in every module

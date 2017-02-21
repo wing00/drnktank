@@ -9,7 +9,7 @@ export default class Nav extends React.Component {
                 <div className="row">
                     <div className="col-xs-12 col-md-12 col-lg-12 col-xl-12">
                         <div className="nav">
-                            <Link to="/game"><button type="button" className="btn btn-primary">New Game</button></Link>
+                            <Link to="/setup"><button type="button" className="btn btn-primary">New Game</button></Link>
                             <Link to="/stats"><button type="button" className="btn btn-primary">Stats</button></Link>
 
                             {this.props.children}
