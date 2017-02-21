@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.templatetags.static import static
 
+
 class IndexView(TemplateView):
     template_name = "front/index.html"
     title = "DrnkTank"

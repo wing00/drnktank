@@ -10,12 +10,14 @@ import { Router, Route, browserHistory } from 'react-router';
 import Game from './pong.jsx';
 import Stats from './stats.jsx';
 import Nav from './nav.jsx';
+import Setup from './setup.jsx';
 
 
 ReactDOM.render((
     <Router history={browserHistory}>
         <Route path="/" component={Nav}/>
         <Route path="/stats" component={Stats}/>
+        <Route path="/setup" component={Setup} />
         <Route path="/game" component={Game}/>
     </Router>
     ),
