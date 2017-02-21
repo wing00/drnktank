@@ -2,7 +2,6 @@ import styles from './../css/pong.css';
 import React from 'react';
 import { Router, Route, Link, hashHistory } from 'react-router';
 
-
 function PlayerIcon(props) {
     if(props.current == props.value) {
         return (
@@ -52,19 +51,28 @@ function calculateWinner (history) {
 }
 
 function calculateStats(stats, player) {
-    return stats[player].reduce(function(x, y) {return x + y;}, 0);
+    return stats[player].reduce(function(x, y) {return (y > -1) ? x + 1 : x;}, 0);
 }
 
 function playRandomSound(soundType) { 
     let player = $('#player'); 
 
-    $.getJSON('/sounds/' + soundType, function (json) { 
-        let soundsList = json['sounds']; 
+    let soundsList = JSON.parse(localStorage.getItem(soundType));
 
-        player.find('source')[0].src = soundsList[Math.floor(Math.random() * 3)]; 
+    if(soundsList) {
+        player.find('source')[0].src = soundsList.sounds[Math.floor(Math.random() * 3)];
         player[0].load();
         player[0].play();
-    });
+    } else {
+        $.getJSON('/sounds/' + soundType, function (json) {
+            localStorage.setItem(soundType, JSON.stringify(json));
+        });
+
+        soundsList = JSON.parse(localStorage.getItem(soundType));
+        player.find('source')[0].src = soundsList.sounds[Math.floor(Math.random() * 3)];
+        player[0].load();
+        player[0].play();
+    }
   }
 
 class Board extends React.Component {
@@ -155,11 +163,11 @@ class Game extends React.Component {
         }
 
         if(data["miss"]) {
-            stats[this.state.stepNumber % 4].push(0);
+            stats[this.state.stepNumber % 4].push(-1);
             playRandomSound('miss');
 
         } else {
-            stats[this.state.stepNumber % 4].push(1);
+            stats[this.state.stepNumber % 4].push(data["cup"]);
 
             if (data["team"]) {
                 theirCups[data["cup"]] = 0;
