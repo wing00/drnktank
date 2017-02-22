@@ -235,6 +235,12 @@ class Game extends React.Component {
         }
     }
 
+    rematch() {
+        this.setState({
+            stepNumber:0,
+        });
+    }
+
     mute() {
         let player = $('#player'); 
         let muteButton = $('#muteBtn');
@@ -254,8 +260,6 @@ class Game extends React.Component {
         const winner = calculateWinner(currentTurn);
         let names = ["You", "Partner", "Opponent 1", "Opponent 2"];
         const currentPlayer = names[this.state.stepNumber % 4];
-
-
 
         return (
             <div className="game container">
@@ -280,7 +284,7 @@ class Game extends React.Component {
                              <div className="status text-center">
 
                                  <h2>{winner} Wins!</h2>
-                                 <Link to="/game"><button type="button" className="btn btn-primary text-center">Rematch</button></Link>
+                                 <button type="button" className="btn btn-primary text-center" onClick={(i) => this.rematch()}>Rematch</button>
                                  <br/><br />
                                  <Link to="/setup"><button type="button" className="btn btn-primary text-center">New Game</button></Link>
 
