@@ -256,14 +256,10 @@ class Game extends React.Component {
         const currentPlayer = names[this.state.stepNumber % 4];
 
 
+
         return (
             <div className="game container">
                 {winner && <Confetti />}
-                <div className="row">
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        <div className="status">{status}</div>
-                    </div>
-                </div>
                  <div className="row">
                      <div className="myTeamIcons col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                          <h2>Blue Team</h2>
@@ -282,12 +278,16 @@ class Game extends React.Component {
                      <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                          {winner ? (
                              <div className="status text-center">
-                                 <h4>Winner: {winner}</h4>
+
+                                 <h2>{winner} Wins!</h2>
+                                 <Link to="/game"><button type="button" className="btn btn-primary text-center">Rematch</button></Link>
+                                 <br/><br />
+                                 <Link to="/setup"><button type="button" className="btn btn-primary text-center">New Game</button></Link>
+
                              </div>
                              ): (
                               <div className="status text-center">
-
-                             <h4>Next player: {currentPlayer}</h4>
+                                  <h4>Next player: {currentPlayer}</h4>
                               </div>
                          )}
 
