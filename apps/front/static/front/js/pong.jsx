@@ -196,17 +196,18 @@ class Game extends React.Component {
         const myCups = current.myCups.slice();
         const theirCups = current.theirCups.slice();
         const stats = current.stats.map(function(data) {return data.slice()});
+        const player = this.state.stepNumber % 4;
 
         if(calculateWinner(current)) {
             return;
         }
 
         if(data["miss"]) {
-            stats[this.state.stepNumber % 4].push(-1);
+            stats[player].push(-1);
             playRandomSound('miss');
 
         } else {
-            stats[this.state.stepNumber % 4].push(data["cup"]);
+            stats[player].push(data["cup"]);
 
             if (data["team"]) {
                 theirCups[data["cup"]] = 0;
@@ -227,7 +228,6 @@ class Game extends React.Component {
     }
 
     undo() {
-
         if(this.state.stepNumber > 0) {
             this.setState({
                 stepNumber: this.state.history.length - 2,
@@ -258,7 +258,14 @@ class Game extends React.Component {
         const currentTurn = history[this.state.stepNumber];
         const stats = currentTurn.stats;
         const winner = calculateWinner(currentTurn);
-        let names = ["You", "Partner", "Opponent 1", "Opponent 2"];
+
+        let names = JSON.parse(localStorage.getItem("namesList"));
+
+        if(!names) {
+            names = ["You", "Partner", "Opponent 1", "Opponent 2"];
+        } else {
+            names = names['names'];
+        }
         const currentPlayer = names[this.state.stepNumber % 4];
 
         return (
@@ -281,7 +288,7 @@ class Game extends React.Component {
                      </div>
                      <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                          {winner ? (
-                             <div className="status text-center">
+                             <div className="statusboard text-center">
 
                                  <h2>{winner} Wins!</h2>
                                  <button type="button" className="btn btn-primary text-center" onClick={(i) => this.rematch()}>Rematch</button>
@@ -290,8 +297,8 @@ class Game extends React.Component {
 
                              </div>
                              ): (
-                              <div className="status text-center">
-                                  <h4>Next player: {currentPlayer}</h4>
+                              <div className="statusboard text-center">
+                                  <h4>Next player<br/>{currentPlayer}</h4>
                               </div>
                          )}
 

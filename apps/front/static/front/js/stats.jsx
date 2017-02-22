@@ -16,9 +16,14 @@ const data = [
 
 
 export default class Stats extends React.Component {
+    constructor() {
+        super();
+        console.log(this);
+    }
     render() {
         return (
             <div className="container">
+                {console.log(this.props.location.state)}
                 <h2>Stats</h2>
                 <BarChart width={600}
                           height={300}
