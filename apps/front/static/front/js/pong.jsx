@@ -178,16 +178,23 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            stepNumber: 0,
-            history: [{
-                myCups: Array(10).fill(1),
-                theirCups: Array(10).fill(1),
-                stats: [[],[],[],[]],
-            }]
-        };
+    constructor(props) {
+        super(props);
+
+        if(this.props.location.state) {
+            this.state = this.props.location.state;
+        } else {
+            this.state = {
+                stepNumber: 0,
+                history: [{
+                    myCups: Array(10).fill(1),
+                    theirCups: Array(10).fill(1),
+                    stats: [[], [], [], []],
+                }],
+                muted: false,
+
+            };
+        }
     }
 
     handleClick(data) {
@@ -251,6 +258,7 @@ class Game extends React.Component {
             muteButton.find('i').removeClass('fa fa-volume-up').addClass('fa fa-volume-off');
         }
         player[0].muted = !player[0].muted;
+        this.state.muted = !this.state.muted;
     }
 
     render() {
@@ -329,9 +337,12 @@ class Game extends React.Component {
                 <div className="row">
                     <div className="menu col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                         <button id = "muteBtn" className="btn btn-default" onClick={(i) => this.mute()}>
-                            <i className="fa fa-volume-up" aria-hidden="true" />
+                            {this.state.muted ? (<i className="fa fa-volume-off" aria-hidden="true" />) : (<i className="fa fa-volume-up" aria-hidden="true" />)}
                         </button>
-                        <Link to="/stats">
+                        <Link to={{
+                            pathname: "/stats",
+                            state: this.state,
+                        }}>
                             <button type="button" className="btn btn-info">
                                 <i className = "fa fa-bar-chart" aria-hidden="true" />
                             </button>

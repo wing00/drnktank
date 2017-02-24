@@ -12,7 +12,7 @@ export default class Nav extends React.Component {
                             <Link to="/setup"><button type="button" className="btn btn-primary">New Game</button></Link>
                             <Link to={{
                               pathname: "/stats",
-                                state: {"test": true},
+                                state: null,
                             }}>
                             <button type = "button" className="btn btn-primary">Stats</button></Link>
 

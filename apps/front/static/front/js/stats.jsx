@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 
@@ -16,14 +17,15 @@ const data = [
 
 
 export default class Stats extends React.Component {
-    constructor() {
-        super();
-        console.log(this);
+    constructor(props) {
+        super(props);
+        console.log(this.props);
     }
     render() {
         return (
             <div className="container">
-                {console.log(this.props.location.state)}
+
+
                 <h2>Stats</h2>
                 <BarChart width={600}
                           height={300}
@@ -40,6 +42,11 @@ export default class Stats extends React.Component {
                     <Bar dataKey="Player3" stackId="a" fill="#82ca9d" />
 
                 </BarChart>
+                <Link to={{pathname: "/game",
+                state: this.props.location.state,
+                }}>
+                    <button type="button" className="btn btn-primary">Go Back</button>
+                </Link>
             </div>
         )
     };

@@ -24,7 +24,11 @@ export default class Setup extends React.Component {
                         </div>
                     </div>
                     <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4 text-center">
-                        <Link to="/game">
+                        <Link to={{
+                            pathname: "/game",
+                            onClick: this.saveNames(),
+                            state: null,
+                        }}>
                             <button type="button" className="btn btn-primary" onClick={(i) => this.saveNames()}>Go</button>
                         </Link>
                     </div>
