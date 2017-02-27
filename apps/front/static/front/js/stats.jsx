@@ -9,9 +9,10 @@ let player2 = 3;
 let player3 = 2;
 
 
+
 const data = [
-      {name: 'Team 1', Player0: player0, Player1: -player1},
-      {name: 'Team 2', Player2: player2 + player3,  Player3: -player3},
+    {name: 'Team 1', Player0: player0, Player1: -player1},
+    {name: 'Team 2', Player2: player2 + player3,  Player3: -player3},
 ];
 // NOTE: Player 1's real score is player 2s score plus the value given to player 1.
 
@@ -24,9 +25,7 @@ export default class Stats extends React.Component {
     render() {
         return (
             <div className="container">
-
-
-                <h2>Stats</h2>
+            <h2>Stats</h2>
                 <BarChart width={600}
                           height={300}
                           data={data}
@@ -51,4 +50,3 @@ export default class Stats extends React.Component {
         )
     };
 }
-

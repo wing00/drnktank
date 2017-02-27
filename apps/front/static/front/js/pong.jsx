@@ -94,6 +94,12 @@ function calculateStats(stats, player) {
     return [cupCount, fireArray, onFire]
 }
 
+function calculateFire(stats, player) {
+    return stats[player].slice(-3).reduce(function(x, y) {return (y > -1) ? x + 1 : x; }, 0) == 3;
+}
+
+
+
 function playRandomSound(soundType) { 
     let player = $('#player'); 
     let soundsList = JSON.parse(localStorage.getItem(soundType));
@@ -190,9 +196,9 @@ class Game extends React.Component {
                     myCups: Array(10).fill(1),
                     theirCups: Array(10).fill(1),
                     stats: [[], [], [], []],
+                    queue: [3, 2, 1, 0],
                 }],
                 muted: false,
-
             };
         }
     }
@@ -203,7 +209,8 @@ class Game extends React.Component {
         const myCups = current.myCups.slice();
         const theirCups = current.theirCups.slice();
         const stats = current.stats.map(function(data) {return data.slice()});
-        const player = this.state.stepNumber % 4;
+        let queue = current.queue.slice();
+        const player = queue.pop();
 
         if(calculateWinner(current)) {
             return;
@@ -223,12 +230,19 @@ class Game extends React.Component {
             }
             playRandomSound('make');
         }
+        if(calculateFire(stats, player)) {
+            queue.push(player);
+        }
+        if(queue.length == 0) {
+            queue = [3, 2, 1, 0];
+        }
 
         this.setState({
             history: history.concat([{
                 myCups: myCups,
                 theirCups: theirCups,
                 stats: stats,
+                queue: queue,
             }]),
             stepNumber: history.length,
         });
@@ -248,6 +262,8 @@ class Game extends React.Component {
         });
     }
 
+
+
     mute() {
         let player = $('#player'); 
         let muteButton = $('#muteBtn');
@@ -266,6 +282,7 @@ class Game extends React.Component {
         const currentTurn = history[this.state.stepNumber];
         const stats = currentTurn.stats;
         const winner = calculateWinner(currentTurn);
+        const player = currentTurn.queue[currentTurn.queue.length - 1];
 
         let names = JSON.parse(localStorage.getItem("namesList"));
 
@@ -274,7 +291,8 @@ class Game extends React.Component {
         } else {
             names = names['names'];
         }
-        const currentPlayer = names[this.state.stepNumber % 4];
+
+        const currentPlayer = names[player];
 
         return (
             <div className="game container">
@@ -304,9 +322,9 @@ class Game extends React.Component {
                                  <Link to="/setup"><button type="button" className="btn btn-primary text-center">New Game</button></Link>
 
                              </div>
-                             ): (
+                             ) : (
                               <div className="statusboard text-center">
-                                  <h4>Next player<br/>{currentPlayer}</h4>
+                                  <h4>Player Shooting<br/>{currentPlayer}</h4>
                               </div>
                          )}
 
