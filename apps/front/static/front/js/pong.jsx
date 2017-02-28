@@ -1,6 +1,7 @@
 import styles from './../css/pong.css';
 import React from 'react';
 import { Router, Route, Link, hashHistory } from 'react-router';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import Confetti from 'react-confetti';
 
 
@@ -98,6 +99,9 @@ function calculateFire(stats, player) {
     return stats[player].slice(-3).reduce(function(x, y) {return (y > -1) ? x + 1 : x; }, 0) == 3;
 }
 
+function getTooltip(name) {
+    return (<Tooltip id="tooltip">{name}</Tooltip>);
+}
 
 
 function playRandomSound(soundType) { 
@@ -296,6 +300,8 @@ class Game extends React.Component {
 
         const currentPlayer = names[player];
 
+
+
         return (
             <div className="game container">
                 {winner && <Confetti />}
@@ -326,7 +332,7 @@ class Game extends React.Component {
                              </div>
                              ) : (
                               <div className="statusboard text-center">
-                                  <h4>Player Shooting<br/>{currentPlayer}</h4>
+                                  <h4>Current Shooter<br/>{currentPlayer}</h4>
                               </div>
                          )}
 
@@ -356,24 +362,32 @@ class Game extends React.Component {
 
                 <div className="row">
                     <div className="menu col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        <button id = "muteBtn" className="btn btn-default" onClick={(i) => this.mute()}>
-                            {this.state.muted ? (<i className="fa fa-volume-off" aria-hidden="true" />) : (<i className="fa fa-volume-up" aria-hidden="true" />)}
-                        </button>
+                        <OverlayTrigger placement="top" overlay={getTooltip("Sound")}>
+                            <button id = "muteBtn" className="btn btn-default" onClick={(i) => this.mute()}>
+                                {this.state.muted ? (<i className="fa fa-volume-off" aria-hidden="true" />) : (<i className="fa fa-volume-up" aria-hidden="true" />)}
+                            </button>
+                        </OverlayTrigger>
                         <Link to={{
                             pathname: "/stats",
                             state: this.state,
                             onClick: this.saveStats(),
                         }}>
-                            <button type="button" className="btn btn-info">
-                                <i className = "fa fa-bar-chart" aria-hidden="true" />
-                            </button>
+                            <OverlayTrigger placement="top" overlay={getTooltip("Stats")}>
+                                <button type="button" className="btn btn-info">
+                                    <i className = "fa fa-bar-chart" aria-hidden="true" />
+                                </button>
+                            </OverlayTrigger>
                         </Link>
-                        <button className = "btn btn-warning" onClick={(i) => this.handleClick({"miss": true})}>
-                             <i className = "fa fa-times" aria-hidden="true" />
-                        </button>
-                        <button className = "btn btn-default" onClick={(i) => this.undo()}>
-                            <i className = "fa fa-undo" aria-hidden="true" />
-                        </button>
+                        <OverlayTrigger placement="top" overlay={getTooltip("Miss")}>
+                            <button className = "btn btn-warning"  onClick={(i) => this.handleClick({"miss": true})}>
+                                 <i className = "fa fa-times" aria-hidden="true" />
+                            </button>
+                        </OverlayTrigger>
+                        <OverlayTrigger placement="top" overlay={getTooltip("Undo")}>
+                            <button className = "btn btn-default"  onClick={(i) => this.undo()}>
+                                <i className = "fa fa-undo" aria-hidden="true" />
+                            </button>
+                        </OverlayTrigger>
                     </div>
                 </div>
             </div>
