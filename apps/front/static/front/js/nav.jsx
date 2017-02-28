@@ -2,16 +2,12 @@ import React from 'react';
 import { Link } from 'react-router';
 
 
-
 export default class Nav extends React.Component {
     setColor(color) {
         $('.title h1').css('background-color', color);
         $('.palette-style').remove();
         $('<style class="palette-style">.btn-circle { box-shadow: 0px 20px '+ color  +'; }</style>').appendTo('head');
-
-
     }
-
 
     render() {
         return (

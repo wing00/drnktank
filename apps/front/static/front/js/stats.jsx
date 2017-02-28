@@ -57,27 +57,24 @@ export default class Stats extends React.Component {
         let stats = JSON.parse(localStorage.getItem("stats"));
         let make;
         let calories;
-        const names = getNames();
+        let names = getNames();
 
 
         if(this.props.location.state) {
             const history = this.props.location.state.history;
             const currentTurn = history[history.length - 1];
             stats = currentTurn.stats.map(function(data) {return data.slice()});
-
             make = getMake(stats);
             calories = getCalories(stats);
 
         } else if (stats) {
-            console.log(stats);
-
             make = getMake(stats);
             calories = getCalories(stats);
         } else {
-            make = [{"name":"Make %","Player1":66,"Player2":33,"Player3":20,"Player 4":100}];
+            names = ["Player 1, Player 2, Player 3, Player 4"];
+            make = [{"name":"Make %","Player 1":66,"Player 2":33,"Player 3":20,"Player 4":100}];
             calories = [{"name":"Calories","Player 4":40.8,"Player 3":40.8,"Player 2":20.4,"Player 1":20.4}];
         }
-
         return (
             <div className="col-xs-12 col-md-12 col-lg-12 col-xl-12 text-center">
                 <div className="chartContainer">
@@ -117,12 +114,22 @@ export default class Stats extends React.Component {
                         <Bar dataKey={names[3]} fill="#8884d8" />
 
                     </BarChart>
-
-                    <Link to={{pathname: "/game",
-                        state: this.props.location.state,
-                    }}>
-                        <button type="button" className="btn btn-primary">Go Back</button>
-                    </Link>
+                    {this.props.location.state ? (
+                        <Link to={{
+                            pathname: "/game",
+                            state: this.props.location.state,
+                        }}>
+                            <button type="button" className="btn btn-primary">Go Back</button>
+                        </Link>
+                        ) : (
+                            <Link to={{
+                            pathname: "/",
+                            state: null,
+                        }}>
+                            <button type="button" className="btn btn-primary">Go Back</button>
+                        </Link>
+                        )
+                    }
                 </div>
             </div>
         )

@@ -4,32 +4,18 @@ import { Link } from 'react-router';
 function PlayerIcon(props) {
     const onFire = props.stats[2];
 
-    if(props.current == props.value) {
-        return (
-            <div className="player current-player">
-                {props.value} <br />
-                <i className="fa fa-2x fa-user-circle" /> <br />
-                {props.stats[1].map(function(object, num){
-                    if (onFire) {
-                        return (
-                            <i className="fa fa-fire" key={num} />
-                        );
-                    } else {
-                        return (
-                            <i className="fa fa-circle" key={num} />
-                        );
-                    }
-                })}
-                <br />
 
-                {props.stats[0]} <br />
-            </div>
-        );
-    }  else {
         return (
             <div className="player">
-                {props.value} <br />
-                <i className="fa fa-2x fa-user" /> <br />
+                {props.value}
+                <br />
+                {props.current == props.value ? (
+                    <i className="fa fa-2x fa-user-circle" />
+                    ) : (
+                    <i className="fa fa-2x fa-user" />
+                    )
+                }
+                <br />
                 {props.stats[1].map(function(object, num){
                     if (onFire) {
                         return (
@@ -45,7 +31,8 @@ function PlayerIcon(props) {
                 {props.stats[0]} <br />
             </div>
         );
-    }
+
+
 }
 
 function calculateStats(stats, player) {

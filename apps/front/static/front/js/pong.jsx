@@ -1,12 +1,7 @@
 import styles from './../css/pong.css';
 import React from 'react';
-import { Router, Route, Link, hashHistory } from 'react-router';
 import Confetti from 'react-confetti';
-import Board from './pong_components/board.jsx';
-import TopBar from './pong_components/topbar.jsx';
-import Menu from './pong_components/menu.jsx';
-
-
+import { Board, TopBar, Menu } from './pong_components';
 
 
 function calculateWinner (history) {
@@ -25,8 +20,6 @@ function calculateWinner (history) {
 function calculateFire(stats, player) {
     return stats[player].slice(-3).reduce(function(x, y) {return (y > -1) ? x + 1 : x; }, 0) == 3;
 }
-
-
 
 function playRandomSound(soundType) { 
     let player = $('#player'); 
@@ -67,8 +60,6 @@ class Game extends React.Component {
                 muted: false,
             };
         }
-
-
     }
 
     handleClick(data) {
@@ -152,9 +143,7 @@ class Game extends React.Component {
         } else {
             names = names['names'];
         }
-
         const currentPlayer = names[player];
-
 
 
         return (
