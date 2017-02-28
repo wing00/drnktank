@@ -1,73 +1,15 @@
 import styles from './../css/pong.css';
 import React from 'react';
 import { Router, Route, Link, hashHistory } from 'react-router';
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import Confetti from 'react-confetti';
+import Board from './pong_components/board.jsx';
+import TopBar from './pong_components/topbar.jsx';
+import Menu from './pong_components/menu.jsx';
 
 
-function PlayerIcon(props) {
-    const onFire = props.stats[2];
 
-    if(props.current == props.value) {
-        return (
-            <div className="player current-player">
-                {props.value} <br />
-                <i className="fa fa-2x fa-user-circle" /> <br />
-                {props.stats[1].map(function(object, num){
-                    if (onFire) {
-                        return (
-                            <i className="fa fa-fire" key={num} />
-                        );
-                    } else {
-                        return (
-                            <i className="fa fa-circle" key={num} />
-                        );
-                    }
-                })}
-                <br />
-
-                {props.stats[0]} <br />
-            </div>
-        );
-    }  else {
-        return (
-            <div className="player">
-                {props.value} <br />
-                <i className="fa fa-2x fa-user" /> <br />
-                {props.stats[1].map(function(object, num){
-                    if (onFire) {
-                        return (
-                            <i className="fa fa-fire" key={num} />
-                        );
-                    } else {
-                        return (
-                            <i className="fa fa-circle" key={num} />
-                        );
-                    }
-                })}
-                <br />
-                {props.stats[0]} <br />
-            </div>
-        );
-    }
-}
-
-function Circle(props) {
-    if(props.value) {
-        return (
-        <button className="btn btn-default btn-circle" onClick={() => props.onClick()}>
-        </button>
-        );
-    } else {
-        return (
-         <button className="invisible btn btn-default btn-circle" onClick={() => props.onClick()}>
-         </button>
-        );
-    }
-}
 
 function calculateWinner (history) {
-
     let myCupCount = history.myCups.reduce(function(x, y) {return x+y;}, 0);
     let theirCupCount = history.theirCups.reduce(function(x, y) {return x+y;}, 0);
 
@@ -80,28 +22,10 @@ function calculateWinner (history) {
     return false;
 }
 
-function calculateStats(stats, player) {
-    let cupCount = stats[player].reduce(function(x, y) {return (y > -1) ? x + 1 : x;}, 0);
-    let lastThree = stats[player].slice(-3).reverse();
-    let fireArray = [];
-    for (let i = 0; i < lastThree.length ; i++) {
-        if (lastThree[i] == -1) {
-            break;
-        }
-        fireArray.push(1);
-    }
-    let onFire = fireArray.length == 3;
-
-    return [cupCount, fireArray, onFire]
-}
-
 function calculateFire(stats, player) {
     return stats[player].slice(-3).reduce(function(x, y) {return (y > -1) ? x + 1 : x; }, 0) == 3;
 }
 
-function getTooltip(name) {
-    return (<Tooltip id="tooltip">{name}</Tooltip>);
-}
 
 
 function playRandomSound(soundType) { 
@@ -124,68 +48,6 @@ function playRandomSound(soundType) { 
     }
   }
 
-class Board extends React.Component {
-    renderMyCup(i) {
-        const cups = this.props.myCups;
-        const info = {"team": 0, "cup":i, "miss":false};
-        return <Circle value={cups[i]}  onClick={() => this.props.onClick(info)} />;
-    }
-
-    renderTheirCup(i) {
-        const cups = this.props.theirCups;
-        const info = {"team": 1, "cup":i, "miss":false};
-        return <Circle value={cups[i]} onClick={() => this.props.onClick(info)} />;
-    }
-
-    render() {
-        return (
-                <div className="row">
-                    <div className="myBoard col-lg-6 col-md-6 col-sm-6 col-xs-12">
-
-                        <div className="board-col">
-                            {this.renderMyCup(0)}
-                            {this.renderMyCup(1)}
-                            {this.renderMyCup(2)}
-                            {this.renderMyCup(3)}
-                        </div>
-                        <div className="board-col">
-                            {this.renderMyCup(4)}
-                            {this.renderMyCup(5)}
-                            {this.renderMyCup(6)}
-                        </div>
-                        <div className="board-col">
-                            {this.renderMyCup(7)}
-                            {this.renderMyCup(8)}
-                        </div>
-                        <div className="board-col">
-                            {this.renderMyCup(9)}
-                        </div>
-                    </div>
-
-                    <div className="theirBoard col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div className="board-col">
-                            {this.renderTheirCup(0)}
-                            {this.renderTheirCup(1)}
-                            {this.renderTheirCup(2)}
-                            {this.renderTheirCup(3)}
-                        </div>
-                        <div className="board-col">
-                            {this.renderTheirCup(4)}
-                            {this.renderTheirCup(5)}
-                            {this.renderTheirCup(6)}
-                        </div>
-                        <div className="board-col">
-                            {this.renderTheirCup(7)}
-                            {this.renderTheirCup(8)}
-                        </div>
-                        <div className="board-col">
-                            {this.renderTheirCup(9)}
-                        </div>
-                    </div>
-                </div>
-        );
-      }
-}
 
 class Game extends React.Component {
     constructor(props) {
@@ -205,6 +67,8 @@ class Game extends React.Component {
                 muted: false,
             };
         }
+
+
     }
 
     handleClick(data) {
@@ -266,21 +130,12 @@ class Game extends React.Component {
         });
     }
 
-    saveStats() {
-        localStorage.setItem('state', JSON.stringify(this.state));
-    }
-
     mute() {
         let player = $('#player'); 
-        let muteButton = $('#muteBtn');
-        if (player[0].muted) {
-            muteButton.find('i').removeClass('fa fa-volume-off').addClass('fa fa-volume-up');
-        }
-        else {
-            muteButton.find('i').removeClass('fa fa-volume-up').addClass('fa fa-volume-off');
-        }
         player[0].muted = !player[0].muted;
-        this.state.muted = !this.state.muted;
+        this.setState({
+            muted: !this.state.muted,
+        });
     }
 
     render() {
@@ -306,50 +161,12 @@ class Game extends React.Component {
             <div className="game container">
                 {winner && <Confetti />}
                  <div className="row">
-                     <div className="myTeamIcons col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                         <h2>Blue Team</h2>
-                         <PlayerIcon
-                            value={names[0]}
-                            current={currentPlayer}
-                            stats={calculateStats(stats, 0)}
-                            onClick={() => this.props.onClick(names[0])}
-                         />
-                         <PlayerIcon value={names[1]}
-                                    current={currentPlayer}
-                                    stats={calculateStats(stats, 1)}
-                                    onClick={() => this.props.onClick(names[1])}
-                         />
-                     </div>
-                     <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                         {winner ? (
-                             <div className="statusboard text-center">
-
-                                 <h2>{winner} Wins!</h2>
-                                 <button type="button" className="btn btn-primary text-center" onClick={(i) => this.rematch()}>Rematch</button>
-                                 <br/><br />
-                                 <Link to="/setup"><button type="button" className="btn btn-primary text-center">New Game</button></Link>
-
-                             </div>
-                             ) : (
-                              <div className="statusboard text-center">
-                                  <h4>Current Shooter<br/>{currentPlayer}</h4>
-                              </div>
-                         )}
-
-                     </div>
-                     <div className="theirTeamIcons col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                         <h2>Red Team</h2>
-                        <PlayerIcon value={names[2]}
-                                    current={currentPlayer}
-                                    stats={calculateStats(stats, 2)}
-                                    onClick={() => this.props.onClick(names[2])}
-                        />
-                        <PlayerIcon value={names[3]}
-                                    current={currentPlayer}
-                                    stats={calculateStats(stats, 3)}
-                                    onClick={() => this.props.onClick(names[3])}
-                        />
-                    </div>
+                     <TopBar winner={winner}
+                             names={names}
+                             currentPlayer={currentPlayer}
+                             stats={stats}
+                             rematch={(i) => this.rematch()}
+                     />
                 </div>
                 <div className="row">
                     <div className="game-board">
@@ -361,34 +178,12 @@ class Game extends React.Component {
                 </div>
 
                 <div className="row">
-                    <div className="menu col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        <OverlayTrigger placement="top" overlay={getTooltip("Sound")}>
-                            <button id = "muteBtn" className="btn btn-default" onClick={(i) => this.mute()}>
-                                {this.state.muted ? (<i className="fa fa-volume-off" aria-hidden="true" />) : (<i className="fa fa-volume-up" aria-hidden="true" />)}
-                            </button>
-                        </OverlayTrigger>
-                        <Link to={{
-                            pathname: "/stats",
-                            state: this.state,
-
-                        }}>
-                            <OverlayTrigger placement="top" overlay={getTooltip("Stats")}>
-                                <button type="button" className="btn btn-info" onClick={(i)=> this.saveStats()}>
-                                    <i className = "fa fa-bar-chart" aria-hidden="true" />
-                                </button>
-                            </OverlayTrigger>
-                        </Link>
-                        <OverlayTrigger placement="top" overlay={getTooltip("Miss")}>
-                            <button className = "btn btn-warning"  onClick={(i) => this.handleClick({"miss": true})}>
-                                 <i className = "fa fa-times" aria-hidden="true" />
-                            </button>
-                        </OverlayTrigger>
-                        <OverlayTrigger placement="top" overlay={getTooltip("Undo")}>
-                            <button className = "btn btn-default"  onClick={(i) => this.undo()}>
-                                <i className = "fa fa-undo" aria-hidden="true" />
-                            </button>
-                        </OverlayTrigger>
-                    </div>
+                    <Menu handle={(i) => this.handleClick(i)}
+                          undo={(i) => this.undo()}
+                          mute={(i) => this.mute()}
+                          muted={this.state.muted}
+                          currentState={this.state}
+                    />
                 </div>
             </div>
         );

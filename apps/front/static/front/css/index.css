@@ -9,14 +9,22 @@
     text-align: center;
 }
 
-
-
 .palette-blue {
     color:white;
     background-color:blue;
 }
 
+.palette-blue:hover {
+    color:white;
+}
+
+
 .palette-red {
     color:white;
-    background-color:blue;
+    background-color:red;
+}
+
+.palette-red:hover {
+    color:white;
+
 }

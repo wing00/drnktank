@@ -35,9 +35,12 @@ export default class Nav extends React.Component {
                 <div className="row">
                     <div className="col-xs-12 col-md-12 col-lg-12 col-xl-12">
                         <div className="palette text-center">
-                            <button type="button" className="btn btn-danger" onClick={(i) => this.setColor("red")}>Red</button>
-
-                            <button type="button" className="btn palette-blue" onClick={(i) => this.setColor("blue")}>Blue</button>
+                            <button type="button" className="btn palette-red" onClick={(i) => this.setColor("red")}>
+                                <i className="fa fa-fw" aria-hidden="true" />
+                            </button>
+                            <button type="button" className="btn palette-blue" onClick={(i) => this.setColor("blue")}>
+                                 <i className="fa fa-fw" aria-hidden="true" />
+                            </button>
                         </div>
                     </div>
                 </div>
