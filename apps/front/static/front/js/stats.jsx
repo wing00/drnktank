@@ -1,7 +1,7 @@
+import styles from './../css/stats.css';
 import React from 'react';
 import {Link} from 'react-router';
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
-
 
 function getNames() {
     let names = JSON.parse(localStorage.getItem("namesList"));
@@ -79,49 +79,51 @@ export default class Stats extends React.Component {
         }
 
         return (
-            <div className="container">
-            <h2>Stats</h2>
-                <h3>Make Percentage</h3>
-                <BarChart width={600}
-                          height={300}
-                          data={make}
-                          margin={{top: 20, right: 30, left: 20, bottom: 5}}
-                >
-                    <XAxis dataKey="name"/>
-                    <YAxis/>
-                    <CartesianGrid strokeDasharray="1 1"/>
-                    <Legend />
+            <div className="col-xs-12 col-md-12 col-lg-12 col-xl-12 text-center">
+                <div className="chartContainer">
+                    <h2>Stats</h2>
+                    <h3>Make Percentage</h3>
+                    <BarChart width={600}
+                              height={300}
+                              data={make}
+                              margin={{top: 20, right: 0, left: 0, bottom: 20}}
+                    >
+                        <XAxis dataKey="name"/>
+                        <YAxis/>
+                        <CartesianGrid strokeDasharray="1 1"/>
+                        <Legend />
 
-                    <Bar dataKey={names[0]} fill="#82ca9d" />
-                    <Bar dataKey={names[1]} fill="#8884d8" />
-                    <Bar dataKey={names[2]} fill="#82ca9d" />
-                    <Bar dataKey={names[3]} fill="#8884d8" />
+                        <Bar dataKey={names[0]} fill="#82ca9d" />
+                        <Bar dataKey={names[1]} fill="#8884d8" />
+                        <Bar dataKey={names[2]} fill="#82ca9d" />
+                        <Bar dataKey={names[3]} fill="#8884d8" />
 
-                </BarChart>
-                <h3>Calories Consumed</h3>
+                    </BarChart>
+                    <h3>Calories Consumed</h3>
 
-                <BarChart width={600}
-                          height={300}
-                          data={calories}
-                          margin={{top: 20, right: 30, left: 20, bottom: 5}}
-                >
-                    <XAxis dataKey="name"/>
-                    <YAxis/>
-                    <CartesianGrid strokeDasharray="1 1"/>
-                    <Legend />
+                    <BarChart width={600}
+                              height={300}
+                              data={calories}
+                              margin={{top: 20, right: 0, left: 0, bottom: 20}}
+                    >
+                        <XAxis dataKey="name"/>
+                        <YAxis/>
+                        <CartesianGrid strokeDasharray="1 1"/>
+                        <Legend />
 
-                    <Bar dataKey={names[0]} fill="#82ca9d" />
-                    <Bar dataKey={names[1]} fill="#8884d8" />
-                    <Bar dataKey={names[2]} fill="#82ca9d" />
-                    <Bar dataKey={names[3]} fill="#8884d8" />
+                        <Bar dataKey={names[0]} fill="#82ca9d" />
+                        <Bar dataKey={names[1]} fill="#8884d8" />
+                        <Bar dataKey={names[2]} fill="#82ca9d" />
+                        <Bar dataKey={names[3]} fill="#8884d8" />
 
-                </BarChart>
+                    </BarChart>
 
-                <Link to={{pathname: "/game",
-                state: this.props.location.state,
-                }}>
-                    <button type="button" className="btn btn-primary">Go Back</button>
-                </Link>
+                    <Link to={{pathname: "/game",
+                        state: this.props.location.state,
+                    }}>
+                        <button type="button" className="btn btn-primary">Go Back</button>
+                    </Link>
+                </div>
             </div>
         )
     };
