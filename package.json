@@ -16,6 +16,7 @@
     "ignore-loader": "^0.1.2",
     "jquery": "^3.1.1",
     "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
     "react-confetti": "^1.1.2",
     "react-dom": "^15.4.2",
     "react-router": "^3.0.2",
