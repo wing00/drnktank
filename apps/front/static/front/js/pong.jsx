@@ -262,7 +262,9 @@ class Game extends React.Component {
         });
     }
 
-
+    saveStats() {
+        localStorage.setItem('state', JSON.stringify(this.state));
+    }
 
     mute() {
         let player = $('#player'); 
@@ -360,6 +362,7 @@ class Game extends React.Component {
                         <Link to={{
                             pathname: "/stats",
                             state: this.state,
+                            onClick: this.saveStats(),
                         }}>
                             <button type="button" className="btn btn-info">
                                 <i className = "fa fa-bar-chart" aria-hidden="true" />

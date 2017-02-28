@@ -3,44 +3,120 @@ import {Link} from 'react-router';
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 
-let player0 = 1;
-let player1 = 3;
-let player2 = 3;
-let player3 = 2;
+function getNames() {
+    let names = JSON.parse(localStorage.getItem("namesList"));
+
+    if(!names) {
+        names = ["You", "Partner", "Opponent 1", "Opponent 2"];
+    } else {
+        names = names['names'];
+    }
+    return names;
+}
+
+function getMake(stats) {
+    const names = getNames();
+    let obj = {name: 'Make %'};
+
+    const make = stats.map(function(data) {
+        return data.reduce(function(x, y) {return (y > -1) ? x + 1 : x; }, 0) * 100.0 / data.length;
+    });
 
 
+    for(let i = 0; i < 4; i++) {
+        obj[names[i]] = make[i];
+    }
 
-const data = [
-    {name: 'Team 1', Player0: player0, Player1: -player1},
-    {name: 'Team 2', Player2: player2 + player3,  Player3: -player3},
-];
-// NOTE: Player 1's real score is player 2s score plus the value given to player 1.
+    return [obj];
+}
+
+
+function getCalories(stats) {
+    const names = getNames();
+    const calories = 102 * 2.0 / 10;
+    let obj = {name: 'Calories'};
+    const make = stats.map(function(data) {
+        return data.reduce(function(x, y) {return (y > -1) ? x + 1 : x; }, 0) * calories;
+    });
+
+
+    for(let i = 0; i < 4; i++) {
+        obj[names[3 - i]] = make[i];
+    }
+
+    return [obj];
+
+}
 
 
 export default class Stats extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
     }
     render() {
+        let stats = JSON.parse(localStorage.getItem("stats"));
+        let make;
+        let calories;
+        const names = getNames();
+
+
+        if(this.props.location.state) {
+            const history = this.props.location.state.history;
+            const currentTurn = history[history.length - 1];
+            stats = currentTurn.stats.map(function(data) {return data.slice()});
+
+            make = getMake(stats);
+            calories = getCalories(stats);
+
+        } else if (localStorage.getItem('state')) {
+            stats = JSON.parse(localStorage.getItem('state'));
+
+            make = getMake(stats);
+            calories = getCalories(stats);
+        } else {
+            make = [{"name":"Make %","Player1":66,"Player2":33,"Player3":20,"Player 4":100}];
+            calories = [{"name":"Calories","Player 4":40.8,"Player 3":40.8,"Player 2":20.4,"Player 1":20.4}];
+        }
+
         return (
             <div className="container">
             <h2>Stats</h2>
+                <h3>Make Percentage</h3>
                 <BarChart width={600}
                           height={300}
-                          data={data}
+                          data={make}
                           margin={{top: 20, right: 30, left: 20, bottom: 5}}
                 >
                     <XAxis dataKey="name"/>
                     <YAxis/>
                     <CartesianGrid strokeDasharray="1 1"/>
                     <Legend />
-                    <Bar dataKey="Player0" stackId="a" fill="#8884d8" />
-                    <Bar dataKey="Player1" stackId="a" fill="#82ca9d" />
-                    <Bar dataKey="Player2" stackId="a" fill="#8884d8" />
-                    <Bar dataKey="Player3" stackId="a" fill="#82ca9d" />
+
+                    <Bar dataKey={names[0]} fill="#82ca9d" />
+                    <Bar dataKey={names[1]} fill="#8884d8" />
+                    <Bar dataKey={names[2]} fill="#82ca9d" />
+                    <Bar dataKey={names[3]} fill="#8884d8" />
 
                 </BarChart>
+                <h3>Calories Consumed</h3>
+
+                <BarChart width={600}
+                          height={300}
+                          data={calories}
+                          margin={{top: 20, right: 30, left: 20, bottom: 5}}
+                >
+                    <XAxis dataKey="name"/>
+                    <YAxis/>
+                    <CartesianGrid strokeDasharray="1 1"/>
+                    <Legend />
+
+                    <Bar dataKey={names[0]} fill="#82ca9d" />
+                    <Bar dataKey={names[1]} fill="#8884d8" />
+                    <Bar dataKey={names[2]} fill="#82ca9d" />
+                    <Bar dataKey={names[3]} fill="#8884d8" />
+
+                </BarChart>
+
                 <Link to={{pathname: "/game",
                 state: this.props.location.state,
                 }}>
