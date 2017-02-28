@@ -68,8 +68,8 @@ export default class Stats extends React.Component {
             make = getMake(stats);
             calories = getCalories(stats);
 
-        } else if (localStorage.getItem('state')) {
-            stats = JSON.parse(localStorage.getItem('state'));
+        } else if (stats) {
+            console.log(stats);
 
             make = getMake(stats);
             calories = getCalories(stats);

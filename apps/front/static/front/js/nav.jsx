@@ -2,7 +2,17 @@ import React from 'react';
 import { Link } from 'react-router';
 
 
+
 export default class Nav extends React.Component {
+    setColor(color) {
+        $('.title h1').css('background-color', color);
+        $('.palette-style').remove();
+        $('<style class="palette-style">.btn-circle { box-shadow: 0px 20px '+ color  +'; }</style>').appendTo('head');
+
+
+    }
+
+
     render() {
         return (
             <div className="container">
@@ -14,9 +24,20 @@ export default class Nav extends React.Component {
                               pathname: "/stats",
                                 state: null,
                             }}>
-                            <button type = "button" className="btn btn-primary">Stats</button></Link>
+                                <br/>
+                                <br/>
+                                <button type = "button" className="btn btn-primary">Stats</button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div className="row">
+                    <div className="col-xs-12 col-md-12 col-lg-12 col-xl-12">
+                        <div className="palette text-center">
+                            <button type="button" className="btn btn-danger" onClick={(i) => this.setColor("red")}>Red</button>
 
-                            {this.props.children}
+                            <button type="button" className="btn palette-blue" onClick={(i) => this.setColor("blue")}>Blue</button>
                         </div>
                     </div>
                 </div>

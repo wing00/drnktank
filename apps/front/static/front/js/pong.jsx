@@ -370,10 +370,10 @@ class Game extends React.Component {
                         <Link to={{
                             pathname: "/stats",
                             state: this.state,
-                            onClick: this.saveStats(),
+
                         }}>
                             <OverlayTrigger placement="top" overlay={getTooltip("Stats")}>
-                                <button type="button" className="btn btn-info">
+                                <button type="button" className="btn btn-info" onClick={(i)=> this.saveStats()}>
                                     <i className = "fa fa-bar-chart" aria-hidden="true" />
                                 </button>
                             </OverlayTrigger>
