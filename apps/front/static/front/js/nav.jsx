@@ -49,7 +49,6 @@ export default class Nav extends React.Component {
 
 
                 </div>
-            </div>
         )
     };
 }
